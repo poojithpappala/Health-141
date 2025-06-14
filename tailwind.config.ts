@@ -29,8 +29,8 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))', // Updated to use CSS variable
-					foreground: 'hsl(var(--primary-foreground))' // Updated to use CSS variable
+					DEFAULT: 'hsl(var(--primary))',
+					foreground: 'hsl(var(--primary-foreground))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -45,7 +45,7 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))', // Kept for general accents
+					DEFAULT: 'hsl(var(--accent))',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
 				popover: {
@@ -67,17 +67,17 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				wellness: {
-					teal: 'hsl(var(--primary))', // Main brand teal, now deeper
-					charcoal: '#2D3748', // Slightly softer charcoal
-          gold: 'hsl(var(--premium-accent))', // New premium accent color
+					teal: 'hsl(var(--primary))', // Main brand teal
+					charcoal: 'hsl(var(--foreground))', // Use main foreground for charcoal
+          gold: 'hsl(var(--premium-accent))',
           'gold-light': 'hsl(var(--premium-accent-light))',
 				}
 			},
-			borderRadius: {
+			borderRadius: { // Consistent border radius using CSS variable
 				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)',
-				'2xl': '1rem'
+				md: 'calc(var(--radius) - 0.25rem)', // Slightly smaller than lg
+				sm: 'calc(var(--radius) - 0.4rem)',  // Even smaller
+				'2xl': 'calc(var(--radius) + 0.5rem)' // Larger for specific elements
 			},
 			keyframes: {
 				'accordion-down': {
@@ -96,10 +96,10 @@ export default {
 						height: '0'
 					}
 				},
-				'fade-in': {
+				'fade-in': { // Refined fade-in for smoother entry
 					'0%': {
 						opacity: '0',
-						transform: 'translateY(20px)'
+						transform: 'translateY(12px)'
 					},
 					'100%': {
 						opacity: '1',
@@ -109,7 +109,7 @@ export default {
 				'slide-up': {
 					'0%': {
 						opacity: '0',
-						transform: 'translateY(30px)'
+						transform: 'translateY(20px)' // Softened slide
 					},
 					'100%': {
 						opacity: '1',
@@ -118,12 +118,13 @@ export default {
 				}
 			},
 			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fade-in 0.6s ease-out',
-				'slide-up': 'slide-up 0.5s ease-out'
+				'accordion-down': 'accordion-down 0.25s ease-out', // Slightly smoother
+				'accordion-up': 'accordion-up 0.25s ease-out', // Slightly smoother
+				'fade-in': 'fade-in 0.5s cubic-bezier(0.215, 0.61, 0.355, 1)', // Smoother easing
+				'slide-up': 'slide-up 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)' // Smoother easing
 			}
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+

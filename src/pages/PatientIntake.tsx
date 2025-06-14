@@ -114,10 +114,8 @@ const PatientIntake = () => {
 
   const handleDateChange = (date: Date | undefined) => {
     setFormData(prev => ({ ...prev, dateOfBirth: date }));
-    if (errors.dateOfBirth) {
-      const error = validateField('dateOfBirth', date);
-      setErrors(prev => ({ ...prev, dateOfBirth: error }));
-    }
+    const error = validateField('dateOfBirth', date); // Validate immediately on change
+    setErrors(prev => ({ ...prev, dateOfBirth: error }));
   };
 
   const handleBlur = (name: string, value: string | Date | undefined) => {
@@ -130,11 +128,10 @@ const PatientIntake = () => {
     
     const newErrors: FormErrors = {};
     Object.entries(formData).forEach(([key, value]) => {
-      // Skip validation for initially empty optional fields if they are still empty
       if (['addressLine2', 'preferredPronouns', 'medicalHistory', 'referralSource'].includes(key) && !value) {
         return;
       }
-      const error = validateField(key, value);
+      const error = validateField(key, value as string | Date | undefined); // Explicit cast
       if (error) newErrors[key] = error;
     });
 
@@ -145,6 +142,7 @@ const PatientIntake = () => {
       toast({
         title: "Information Submitted",
         description: `Thank you, ${formData.fullName}! Please select an appointment time below.`,
+        className: "bg-primary text-primary-foreground", // Premium toast
       });
     } else {
       toast({
@@ -155,21 +153,25 @@ const PatientIntake = () => {
     }
   };
 
+  // Common input classes for consistency
+  const inputBaseClass = "mt-1.5 block w-full rounded-lg border-border bg-background px-4 py-2.5 text-base text-foreground placeholder-muted-foreground shadow-sm focus:border-primary focus:ring-1 focus:ring-primary disabled:cursor-not-allowed disabled:bg-muted";
+  const inputErrorClass = "border-destructive ring-1 ring-destructive focus:border-destructive focus:ring-destructive";
+
   return (
-    <div className="min-h-screen pt-28 pb-12 px-4 sm:px-6 lg:px-8 animate-page-fade-in">
+    <div className="min-h-screen pt-28 pb-16 px-4 sm:px-6 lg:px-8 animate-page-entry bg-gradient-to-br from-background to-primary/5">
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="sm:max-w-md glass-premium">
+        <DialogContent className="sm:max-w-lg glass-effect rounded-xl"> {/* Updated styling */}
           <DialogHeader>
-            <DialogTitle className="text-2xl text-wellness-charcoal">Welcome to Your Consultation</DialogTitle>
-            <DialogDescription className="text-slate-600">
-              Please tell us about yourself so we can match you with the right specialist.
+            <DialogTitle className="text-2xl text-foreground">Begin Your Consultation</DialogTitle>
+            <DialogDescription className="text-foreground/80 mt-1">
+              Share some details to help us connect you with the ideal specialist for your needs.
             </DialogDescription>
           </DialogHeader>
-          <div className="flex justify-end mt-4">
+          <div className="flex justify-end mt-6">
             <Button 
               onClick={() => setShowModal(false)}
-              aria-label="Close onboarding"
-              className="bg-wellness-teal hover:bg-teal-700 text-white btn-hover"
+              aria-label="Get Started"
+              size="lg"
             >
               Get Started
             </Button>
@@ -177,175 +179,159 @@ const PatientIntake = () => {
         </DialogContent>
       </Dialog>
 
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-3xl mx-auto"> {/* Increased max-width for better layout */}
         {!isSubmitted ? (
-          <Card className="card-premium animate-section-fade">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-3xl text-center text-wellness-charcoal">
-                Patient Intake Form
+          <Card className="card-premium animate-section-entry p-6 sm:p-8 md:p-10"> {/* Using card-premium from index.css */}
+            <CardHeader className="pb-6 text-center">
+              <CardTitle className="text-3xl md:text-4xl text-foreground">
+                Patient Intake
               </CardTitle>
+              <p className="text-foreground/70 mt-2 text-lg">Please provide your information below.</p>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-8">
+            <CardContent className="pt-2">
+              <form onSubmit={handleSubmit} className="space-y-10"> {/* Increased spacing */}
+                
                 {/* Personal Information Section */}
                 <section>
-                  <h3 className="text-xl font-semibold text-wellness-charcoal mb-4 border-b pb-2">Personal Information</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-5 border-b border-border pb-3">Personal Information</h3>
                   <div className="space-y-6">
                     <div>
-                      <Label htmlFor="fullName" className="text-slate-700 font-medium">Full Name *</Label>
+                      <Label htmlFor="fullName" className="block text-sm font-medium text-foreground/90 mb-1">Full Name *</Label>
                       <Input
                         id="fullName"
                         type="text"
                         value={formData.fullName}
                         onChange={(e) => handleInputChange('fullName', e.target.value)}
                         onBlur={(e) => handleBlur('fullName', e.target.value)}
-                        className={`mt-1 ${errors.fullName ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
+                        className={cn(inputBaseClass, errors.fullName && inputErrorClass)}
                         required
+                        placeholder="e.g., Jane Doe"
                       />
-                      {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
+                      {errors.fullName && <p className="text-destructive text-xs mt-1.5">{errors.fullName}</p>}
                     </div>
 
-                    <div>
-                      <Label htmlFor="dateOfBirth" className="text-slate-700 font-medium">Date of Birth *</Label>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant={"outline"}
-                            id="dateOfBirth"
-                            className={cn(
-                              "w-full justify-start text-left font-normal mt-1",
-                              !formData.dateOfBirth && "text-muted-foreground",
-                              errors.dateOfBirth ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'
-                            )}
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {formData.dateOfBirth ? format(formData.dateOfBirth, "PPP") : <span>Pick a date</span>}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 pointer-events-auto" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={formData.dateOfBirth}
-                            onSelect={handleDateChange}
-                            onDayBlur={() => handleBlur('dateOfBirth', formData.dateOfBirth)} // Trigger validation on blur from calendar
-                            disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
-                            initialFocus
-                            className="p-3"
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      {errors.dateOfBirth && <p className="text-red-500 text-xs mt-1">{errors.dateOfBirth}</p>}
-                    </div>
-                     <div>
-                        <Label htmlFor="preferredPronouns" className="text-slate-700 font-medium">Preferred Pronouns</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <Label htmlFor="dateOfBirth" className="block text-sm font-medium text-foreground/90 mb-1">Date of Birth *</Label>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              id="dateOfBirth"
+                              className={cn(
+                                inputBaseClass,
+                                "w-full justify-start text-left font-normal",
+                                !formData.dateOfBirth && "text-muted-foreground",
+                                errors.dateOfBirth && inputErrorClass
+                              )}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4 text-foreground/70" />
+                              {formData.dateOfBirth ? format(formData.dateOfBirth, "PPP") : <span>Pick a date</span>}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0 glass-effect rounded-lg mt-1" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={formData.dateOfBirth}
+                              onSelect={handleDateChange}
+                              disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+                              initialFocus
+                              className="p-2 bg-transparent" // Calendar styling
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        {errors.dateOfBirth && <p className="text-destructive text-xs mt-1.5">{errors.dateOfBirth}</p>}
+                      </div>
+                       <div>
+                        <Label htmlFor="preferredPronouns" className="block text-sm font-medium text-foreground/90 mb-1">Preferred Pronouns</Label>
                         <Input
                           id="preferredPronouns"
                           type="text"
                           value={formData.preferredPronouns}
                           onChange={(e) => handleInputChange('preferredPronouns', e.target.value)}
-                          onBlur={(e) => handleBlur('preferredPronouns', e.target.value)}
-                          className="mt-1 border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal"
-                          placeholder="e.g., she/her, he/him, they/them"
+                          className={cn(inputBaseClass, errors.preferredPronouns && inputErrorClass)}
+                          placeholder="e.g., she/her, they/them"
                         />
-                        {errors.preferredPronouns && <p className="text-red-500 text-xs mt-1">{errors.preferredPronouns}</p>}
+                        {errors.preferredPronouns && <p className="text-destructive text-xs mt-1.5">{errors.preferredPronouns}</p>}
                       </div>
+                    </div>
                   </div>
                 </section>
 
                 {/* Contact Information Section */}
                 <section>
-                  <h3 className="text-xl font-semibold text-wellness-charcoal mb-4 border-b pb-2">Contact Information</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-5 border-b border-border pb-3">Contact Information</h3>
                   <div className="space-y-6">
-                    <div>
-                      <Label htmlFor="email" className="text-slate-700 font-medium">Email *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
-                        onBlur={(e) => handleBlur('email', e.target.value)}
-                        className={`mt-1 ${errors.email ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
-                        required
-                      />
-                      {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <Label htmlFor="email" className="block text-sm font-medium text-foreground/90 mb-1">Email Address *</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => handleInputChange('email', e.target.value)}
+                          onBlur={(e) => handleBlur('email', e.target.value)}
+                          className={cn(inputBaseClass, errors.email && inputErrorClass)}
+                          required
+                          placeholder="you@example.com"
+                        />
+                        {errors.email && <p className="text-destructive text-xs mt-1.5">{errors.email}</p>}
+                      </div>
+                      <div>
+                        <Label htmlFor="phone" className="block text-sm font-medium text-foreground/90 mb-1">Phone Number *</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => handleInputChange('phone', e.target.value)}
+                          onBlur={(e) => handleBlur('phone', e.target.value)}
+                           className={cn(inputBaseClass, errors.phone && inputErrorClass)}
+                          required
+                          placeholder="(555) 123-4567"
+                        />
+                        {errors.phone && <p className="text-destructive text-xs mt-1.5">{errors.phone}</p>}
+                      </div>
                     </div>
                     <div>
-                      <Label htmlFor="phone" className="text-slate-700 font-medium">Phone *</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
-                        onBlur={(e) => handleBlur('phone', e.target.value)}
-                        className={`mt-1 ${errors.phone ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
-                        required
-                      />
-                      {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
-                    </div>
-                    <div>
-                      <Label htmlFor="addressLine1" className="text-slate-700 font-medium">Address Line 1 *</Label>
+                      <Label htmlFor="addressLine1" className="block text-sm font-medium text-foreground/90 mb-1">Address Line 1 *</Label>
                       <Input
                         id="addressLine1"
                         type="text"
                         value={formData.addressLine1}
                         onChange={(e) => handleInputChange('addressLine1', e.target.value)}
                         onBlur={(e) => handleBlur('addressLine1', e.target.value)}
-                        className={`mt-1 ${errors.addressLine1 ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
+                        className={cn(inputBaseClass, errors.addressLine1 && inputErrorClass)}
                         required
+                        placeholder="123 Main Street"
                       />
-                      {errors.addressLine1 && <p className="text-red-500 text-xs mt-1">{errors.addressLine1}</p>}
+                      {errors.addressLine1 && <p className="text-destructive text-xs mt-1.5">{errors.addressLine1}</p>}
                     </div>
                     <div>
-                      <Label htmlFor="addressLine2" className="text-slate-700 font-medium">Address Line 2</Label>
+                      <Label htmlFor="addressLine2" className="block text-sm font-medium text-foreground/90 mb-1">Address Line 2 <span className="text-muted-foreground text-xs">(Optional)</span></Label>
                       <Input
                         id="addressLine2"
                         type="text"
                         value={formData.addressLine2}
                         onChange={(e) => handleInputChange('addressLine2', e.target.value)}
-                        onBlur={(e) => handleBlur('addressLine2', e.target.value)}
-                        className="mt-1 border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal"
+                        className={cn(inputBaseClass)}
+                        placeholder="Apartment, suite, etc."
                       />
-                      {/* Optional field, so error display might not be needed unless specific validation exists */}
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
-                          <Label htmlFor="city" className="text-slate-700 font-medium">City *</Label>
-                          <Input
-                            id="city"
-                            type="text"
-                            value={formData.city}
-                            onChange={(e) => handleInputChange('city', e.target.value)}
-                            onBlur={(e) => handleBlur('city', e.target.value)}
-                            className={`mt-1 ${errors.city ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
-                            required
-                          />
-                          {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
+                          <Label htmlFor="city" className="block text-sm font-medium text-foreground/90 mb-1">City *</Label>
+                          <Input id="city" type="text" value={formData.city} onChange={(e) => handleInputChange('city', e.target.value)} onBlur={(e) => handleBlur('city', e.target.value)} className={cn(inputBaseClass, errors.city && inputErrorClass)} required />
+                          {errors.city && <p className="text-destructive text-xs mt-1.5">{errors.city}</p>}
                         </div>
                         <div>
-                          <Label htmlFor="state" className="text-slate-700 font-medium">State *</Label>
-                          <Input
-                            id="state"
-                            type="text"
-                            value={formData.state}
-                            onChange={(e) => handleInputChange('state', e.target.value)}
-                            onBlur={(e) => handleBlur('state', e.target.value)}
-                            className={`mt-1 ${errors.state ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
-                            required
-                          />
-                          {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
+                          <Label htmlFor="state" className="block text-sm font-medium text-foreground/90 mb-1">State / Province *</Label>
+                          <Input id="state" type="text" value={formData.state} onChange={(e) => handleInputChange('state', e.target.value)} onBlur={(e) => handleBlur('state', e.target.value)} className={cn(inputBaseClass, errors.state && inputErrorClass)} required />
+                          {errors.state && <p className="text-destructive text-xs mt-1.5">{errors.state}</p>}
                         </div>
                         <div>
-                          <Label htmlFor="zipCode" className="text-slate-700 font-medium">ZIP Code *</Label>
-                          <Input
-                            id="zipCode"
-                            type="text"
-                            value={formData.zipCode}
-                            onChange={(e) => handleInputChange('zipCode', e.target.value)}
-                            onBlur={(e) => handleBlur('zipCode', e.target.value)}
-                            className={`mt-1 ${errors.zipCode ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
-                            required
-                          />
-                          {errors.zipCode && <p className="text-red-500 text-xs mt-1">{errors.zipCode}</p>}
+                          <Label htmlFor="zipCode" className="block text-sm font-medium text-foreground/90 mb-1">ZIP / Postal Code *</Label>
+                          <Input id="zipCode" type="text" value={formData.zipCode} onChange={(e) => handleInputChange('zipCode', e.target.value)} onBlur={(e) => handleBlur('zipCode', e.target.value)} className={cn(inputBaseClass, errors.zipCode && inputErrorClass)} required />
+                          {errors.zipCode && <p className="text-destructive text-xs mt-1.5">{errors.zipCode}</p>}
                         </div>
                     </div>
                   </div>
@@ -353,93 +339,74 @@ const PatientIntake = () => {
                 
                 {/* Emergency Contact Section */}
                 <section>
-                  <h3 className="text-xl font-semibold text-wellness-charcoal mb-4 border-b pb-2">Emergency Contact</h3>
-                  <div className="space-y-6">
+                  <h3 className="text-xl font-semibold text-foreground mb-5 border-b border-border pb-3">Emergency Contact</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="emergencyContactName" className="text-slate-700 font-medium">Full Name *</Label>
-                      <Input
-                        id="emergencyContactName"
-                        type="text"
-                        value={formData.emergencyContactName}
-                        onChange={(e) => handleInputChange('emergencyContactName', e.target.value)}
-                        onBlur={(e) => handleBlur('emergencyContactName', e.target.value)}
-                        className={`mt-1 ${errors.emergencyContactName ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
-                        required
-                      />
-                      {errors.emergencyContactName && <p className="text-red-500 text-xs mt-1">{errors.emergencyContactName}</p>}
+                      <Label htmlFor="emergencyContactName" className="block text-sm font-medium text-foreground/90 mb-1">Full Name *</Label>
+                      <Input id="emergencyContactName" type="text" value={formData.emergencyContactName} onChange={(e) => handleInputChange('emergencyContactName', e.target.value)} onBlur={(e) => handleBlur('emergencyContactName', e.target.value)} className={cn(inputBaseClass, errors.emergencyContactName && inputErrorClass)} required />
+                      {errors.emergencyContactName && <p className="text-destructive text-xs mt-1.5">{errors.emergencyContactName}</p>}
                     </div>
                     <div>
-                      <Label htmlFor="emergencyContactPhone" className="text-slate-700 font-medium">Phone *</Label>
-                      <Input
-                        id="emergencyContactPhone"
-                        type="tel"
-                        value={formData.emergencyContactPhone}
-                        onChange={(e) => handleInputChange('emergencyContactPhone', e.target.value)}
-                        onBlur={(e) => handleBlur('emergencyContactPhone', e.target.value)}
-                        className={`mt-1 ${errors.emergencyContactPhone ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
-                        required
-                      />
-                      {errors.emergencyContactPhone && <p className="text-red-500 text-xs mt-1">{errors.emergencyContactPhone}</p>}
+                      <Label htmlFor="emergencyContactPhone" className="block text-sm font-medium text-foreground/90 mb-1">Phone Number *</Label>
+                      <Input id="emergencyContactPhone" type="tel" value={formData.emergencyContactPhone} onChange={(e) => handleInputChange('emergencyContactPhone', e.target.value)} onBlur={(e) => handleBlur('emergencyContactPhone', e.target.value)} className={cn(inputBaseClass, errors.emergencyContactPhone && inputErrorClass)} required />
+                      {errors.emergencyContactPhone && <p className="text-destructive text-xs mt-1.5">{errors.emergencyContactPhone}</p>}
                     </div>
                   </div>
                 </section>
 
                 {/* Medical Information Section */}
                 <section>
-                  <h3 className="text-xl font-semibold text-wellness-charcoal mb-4 border-b pb-2">Medical Information</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-5 border-b border-border pb-3">Medical Information</h3>
                   <div className="space-y-6">
                     <div>
-                      <Label htmlFor="concern" className="text-slate-700 font-medium">Describe Your Main Concern *</Label>
+                      <Label htmlFor="concern" className="block text-sm font-medium text-foreground/90 mb-1">Primary Health Concern *</Label>
                       <Textarea
                         id="concern"
                         value={formData.concern}
                         onChange={(e) => handleInputChange('concern', e.target.value)}
                         onBlur={(e) => handleBlur('concern', e.target.value)}
-                        className={`mt-1 ${errors.concern ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
+                        className={cn(inputBaseClass, "min-h-[120px]", errors.concern && inputErrorClass)}
                         rows={4}
-                        placeholder="Please describe your symptoms or health concerns..."
+                        placeholder="Please describe your main symptoms or health concerns..."
                         required
                       />
-                      {errors.concern && <p className="text-red-500 text-xs mt-1">{errors.concern}</p>}
+                      {errors.concern && <p className="text-destructive text-xs mt-1.5">{errors.concern}</p>}
                     </div>
                     <div>
-                      <Label htmlFor="medicalHistory" className="text-slate-700 font-medium">Brief Medical History</Label>
+                      <Label htmlFor="medicalHistory" className="block text-sm font-medium text-foreground/90 mb-1">Brief Medical History <span className="text-muted-foreground text-xs">(Optional)</span></Label>
                       <Textarea
                         id="medicalHistory"
                         value={formData.medicalHistory}
                         onChange={(e) => handleInputChange('medicalHistory', e.target.value)}
-                        onBlur={(e) => handleBlur('medicalHistory', e.target.value)}
-                        className="mt-1 border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal"
+                        className={cn(inputBaseClass, "min-h-[100px]")}
                         rows={3}
                         placeholder="e.g., allergies, chronic conditions, current medications"
                       />
-                      {errors.medicalHistory && <p className="text-red-500 text-xs mt-1">{errors.medicalHistory}</p>}
                     </div>
                   </div>
                 </section>
 
                 {/* Referral Source Section */}
                 <section>
-                  <h3 className="text-xl font-semibold text-wellness-charcoal mb-4 border-b pb-2">Additional Information</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-5 border-b border-border pb-3">Additional Information</h3>
                    <div>
-                      <Label htmlFor="referralSource" className="text-slate-700 font-medium">How did you hear about us?</Label>
+                      <Label htmlFor="referralSource" className="block text-sm font-medium text-foreground/90 mb-1">How did you hear about us? <span className="text-muted-foreground text-xs">(Optional)</span></Label>
                       <Input
                         id="referralSource"
                         type="text"
                         value={formData.referralSource}
                         onChange={(e) => handleInputChange('referralSource', e.target.value)}
-                        onBlur={(e) => handleBlur('referralSource', e.target.value)}
-                        className="mt-1 border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal"
-                        placeholder="e.g., friend, online search, doctor referral"
+                        className={cn(inputBaseClass)}
+                        placeholder="e.g., friend, online, doctor referral"
                       />
-                      {errors.referralSource && <p className="text-red-500 text-xs mt-1">{errors.referralSource}</p>}
                     </div>
                 </section>
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-wellness-teal hover:bg-teal-700 text-white btn-hover py-3 text-base font-semibold"
-                  aria-label="Submit patient info"
+                  size="lg"
+                  className="w-full py-3.5 text-base font-semibold mt-6" // Larger button
+                  aria-label="Submit patient information and continue"
                 >
                   Submit & Continue
                 </Button>
@@ -447,43 +414,44 @@ const PatientIntake = () => {
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-8 animate-section-fade">
-            <Card className="card-premium border-teal-500/30">
-              <CardContent className="p-6 text-center">
-                <CheckCircle className="w-16 h-16 text-wellness-teal mx-auto mb-4 icon-premium" />
-                <h2 className="text-3xl font-semibold text-wellness-charcoal mb-2">
-                  Thanks, {formData.fullName}!
+          <div className="space-y-8 animate-section-entry">
+            <Card className="card-premium border-primary/30 p-8 md:p-12"> {/* Using card-premium */}
+              <CardContent className="p-0 text-center">
+                <CheckCircle className="w-20 h-20 text-primary mx-auto mb-6 icon-shadow" />
+                <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3">
+                  Thank You, {formData.fullName}!
                 </h2>
-                <p className="text-slate-600 text-lg">
-                  You're one step away. Please select your preferred appointment time below.
+                <p className="text-foreground/80 text-lg leading-relaxed">
+                  Your information has been securely submitted. You're one step away from your consultation.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="card-premium">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-2xl text-wellness-charcoal">Schedule Your Appointment</CardTitle>
+            <Card className="card-premium p-0 overflow-hidden"> {/* Using card-premium */}
+              <CardHeader className="p-6 md:p-8 bg-muted/30 border-b border-border">
+                <CardTitle className="text-2xl md:text-3xl text-foreground">Schedule Your Appointment</CardTitle>
+                <p className="text-foreground/70 mt-1">Please select a convenient time for your consultation.</p>
               </CardHeader>
-              <CardContent className="p-4 md:p-6">
-                <div className="calendly-widget-container rounded-lg overflow-hidden">
+              <CardContent className="p-1 md:p-2"> {/* Minimal padding for iframe container */}
+                <div className="calendly-widget-container rounded-lg overflow-hidden min-h-[650px] md:min-h-[700px]">
                   <iframe
-                    src="https://calendly.com/poojith132photography/doctor-consultation-clone"
+                    src="https://calendly.com/poojith132photography/doctor-consultation-clone" // Replace with your actual Calendly link
                     width="100%"
-                    height="600"
+                    height="100%" // Use 100% height for responsiveness within container
                     frameBorder="0"
                     title="Schedule Appointment"
-                    className="min-h-[600px]"
+                    className="absolute top-0 left-0 w-full h-full" // Position iframe to fill container
                     onError={() => {
                       toast({
                         title: "Calendar Error",
-                        description: "Calendar unavailable—please refresh or try again later.",
+                        description: "The scheduling calendar could not be loaded. Please refresh or try again later.",
                         variant: "destructive"
                       });
                     }}
                   />
                 </div>
-                <p className="text-xs text-slate-500 text-center mt-4">
-                  If you don't see the calendar, please refresh the page or try again in a few moments.
+                <p className="text-xs text-muted-foreground text-center mt-4 px-2">
+                  If the calendar doesn't load, please refresh the page or ensure your browser allows third-party cookies for Calendly.
                 </p>
               </CardContent>
             </Card>
