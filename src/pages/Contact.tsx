@@ -1,4 +1,4 @@
-
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,8 +13,12 @@ import {
   Calendar,
   Stethoscope
 } from 'lucide-react';
+import { openTidioChat } from '@/utils/tidioUtils';
+import EmergencyContactDialog from '@/components/EmergencyContactDialog';
 
 const Contact = () => {
+  const [emergencyDialogOpen, setEmergencyDialogOpen] = useState(false);
+
   const contactInfo = [
     {
       icon: MapPin,
@@ -48,23 +52,34 @@ const Contact = () => {
       title: 'Schedule Appointment',
       description: 'Book your appointment with our specialists',
       link: '/patient-intake',
-      color: 'bg-wellness-teal'
+      color: 'bg-wellness-teal',
+      action: null
     },
     {
       icon: MessageSquare,
       title: 'Live Chat Support',
       description: '24/7 customer support available',
       link: '#',
-      color: 'bg-blue-600'
+      color: 'bg-blue-600',
+      action: openTidioChat
     },
     {
       icon: Stethoscope,
       title: 'Emergency Care',
       description: 'Immediate medical attention',
       link: '#',
-      color: 'bg-red-600'
+      color: 'bg-red-600',
+      action: () => setEmergencyDialogOpen(true)
     }
   ];
+
+  const handleQuickAction = (action: any, link: string) => {
+    if (action) {
+      action();
+    } else if (link !== '#') {
+      // Handle regular navigation
+    }
+  };
 
   return (
     <div className="min-h-screen pt-20">
@@ -95,12 +110,22 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600 mb-4">{action.description}</p>
-                  <Button asChild className="w-full rounded-full">
-                    <Link to={action.link}>
+                  {action.link === '#' ? (
+                    <Button 
+                      onClick={() => handleQuickAction(action.action, action.link)}
+                      className="w-full rounded-full"
+                    >
                       Get Started
                       <ArrowRight className="ml-2 w-4 h-4" />
-                    </Link>
-                  </Button>
+                    </Button>
+                  ) : (
+                    <Button asChild className="w-full rounded-full">
+                      <Link to={action.link}>
+                        Get Started
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Link>
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             ))}
@@ -207,6 +232,11 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      <EmergencyContactDialog 
+        open={emergencyDialogOpen} 
+        onOpenChange={setEmergencyDialogOpen} 
+      />
     </div>
   );
 };
