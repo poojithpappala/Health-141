@@ -111,6 +111,34 @@
       0 0 20px rgb(0 122 117 / 0.15),
       0 4px 6px -1px rgb(0 0 0 / 0.1);
   }
+
+  .wellness-teal {
+    color: #007A75;
+  }
+
+  .wellness-charcoal {
+    color: #2D3748;
+  }
+
+  .bg-wellness-teal {
+    background-color: #007A75;
+  }
+
+  .bg-wellness-charcoal {
+    background-color: #2D3748;
+  }
+
+  .border-wellness-teal {
+    border-color: #007A75;
+  }
+
+  .text-wellness-teal {
+    color: #007A75;
+  }
+
+  .text-wellness-charcoal {
+    color: #2D3748;
+  }
 }
 
 @layer components {
