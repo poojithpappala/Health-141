@@ -138,21 +138,30 @@ const Index = () => {
               </span>
             </h1>
             
-            <p className="text-premium mb-12 max-w-4xl mx-auto">
+            <p className="text-lg text-slate-600 mb-12 max-w-4xl mx-auto leading-relaxed">
               Experience the future of healthcare with our award-winning platform. Connect with top specialists, 
               access cutting-edge treatments, and receive personalized care that puts your health first.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-              <Button asChild size="lg" className="btn-primary text-xl px-12 py-6">
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-gradient-to-r from-wellness-teal to-teal-500 hover:from-wellness-teal/90 hover:to-teal-500/90 text-white font-semibold btn-hover premium-shadow text-lg" /* Adjusted classes */
+              >
                 <Link to="/patient-intake">
-                  <Calendar className="mr-3 w-6 h-6" />
+                  <Calendar className="mr-3 w-5 h-5" /> {/* Adjusted icon size for text-lg */}
                   Book Your Appointment
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="btn-secondary text-xl px-12 py-6">
+              <Button 
+                asChild 
+                variant="outline" 
+                size="lg" 
+                className="font-semibold btn-hover premium-shadow text-lg border-wellness-teal text-wellness-teal hover:text-wellness-teal hover:bg-wellness-teal/10" /* Adjusted classes */
+              >
                 <Link to="/services">
-                  <MessageSquare className="mr-3 w-6 h-6" />
+                  <MessageSquare className="mr-3 w-5 h-5" /> {/* Adjusted icon size for text-lg */}
                   Explore Services
                 </Link>
               </Button>
@@ -162,7 +171,7 @@ const Index = () => {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 teal-gradient rounded-2xl flex items-center justify-center floating-animation" style={{animationDelay: `${index * 0.2}s`}}>
+                  <div className="w-16 h-16 mx-auto mb-4 teal-gradient rounded-2xl flex items-center justify-center" style={{animationDelay: `${index * 0.2}s`}}> {/* Removed floating-animation */}
                     <stat.icon className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-4xl font-bold text-wellness-charcoal mb-2">{stat.number}</div>
@@ -181,7 +190,7 @@ const Index = () => {
             <h2 className="heading-secondary mb-6">
               Why Choose WellnessPortal?
             </h2>
-            <p className="text-premium max-w-3xl mx-auto">
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"> {/* Changed from text-premium */}
               We've revolutionized healthcare delivery with innovative technology and compassionate care
             </p>
           </div>
@@ -207,7 +216,7 @@ const Index = () => {
             <h2 className="heading-secondary mb-6">
               Our Medical Specialties
             </h2>
-            <p className="text-premium max-w-3xl mx-auto">
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"> {/* Changed from text-premium */}
               Comprehensive healthcare services delivered by world-renowned specialists
             </p>
           </div>
@@ -231,10 +240,14 @@ const Index = () => {
           </div>
 
           <div className="text-center">
-            <Button asChild size="lg" className="btn-primary text-lg px-10 py-5">
+            <Button 
+              asChild 
+              size="lg" 
+              className="bg-gradient-to-r from-wellness-teal to-teal-500 hover:from-wellness-teal/90 hover:to-teal-500/90 text-white font-semibold btn-hover premium-shadow text-lg" /* Consistent button styling */
+            >
               <Link to="/services">
                 View All Services
-                <ArrowRight className="ml-3 w-5 h-5" />
+                <ArrowRight className="ml-2 w-5 h-5" /> {/* Adjusted margin for text-lg */}
               </Link>
             </Button>
           </div>
@@ -248,7 +261,7 @@ const Index = () => {
             <h2 className="heading-secondary mb-6">
               Meet Our Expert Specialists
             </h2>
-            <p className="text-premium max-w-3xl mx-auto">
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"> {/* Changed from text-premium */}
               Board-certified physicians with decades of experience and thousands of successful treatments
             </p>
           </div>
@@ -260,10 +273,15 @@ const Index = () => {
           </div>
 
           <div className="text-center">
-            <Button asChild size="lg" className="btn-secondary text-lg px-10 py-5">
+            <Button 
+              asChild 
+              size="lg" 
+              className="font-semibold btn-hover premium-shadow text-lg border-wellness-teal text-wellness-teal hover:text-wellness-teal hover:bg-wellness-teal/10" /* Consistent button styling */
+              variant="outline"
+            >
               <Link to="/doctors">
                 View All Specialists
-                <ArrowRight className="ml-3 w-5 h-5" />
+                <ArrowRight className="ml-2 w-5 h-5" /> {/* Adjusted margin */}
               </Link>
             </Button>
           </div>
@@ -277,7 +295,7 @@ const Index = () => {
             <h2 className="heading-secondary mb-6">
               Patient Success Stories
             </h2>
-            <p className="text-premium max-w-3xl mx-auto">
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"> {/* Changed from text-premium */}
               Hear from thousands of patients who have transformed their health with our care
             </p>
           </div>
@@ -292,20 +310,29 @@ const Index = () => {
           <h2 className="text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight">
             Ready to Transform Your Health?
           </h2>
-          <p className="text-2xl text-teal-100 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-teal-100 mb-12 max-w-3xl mx-auto leading-relaxed"> {/* Adjusted text size to text-xl from text-2xl for better balance */}
             Join thousands of patients who have experienced world-class healthcare. 
             Your journey to better health starts with a single click.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button asChild size="lg" className="bg-white text-wellness-teal hover:bg-slate-50 font-bold text-xl px-12 py-6 btn-hover premium-shadow">
+            <Button 
+              asChild 
+              size="lg" 
+              className="bg-white text-wellness-teal hover:bg-slate-50 font-bold text-lg btn-hover premium-shadow" /* Adjusted classes */
+            >
               <Link to="/patient-intake">
-                <Calendar className="mr-3 w-6 h-6" />
+                <Calendar className="mr-3 w-5 h-5" /> {/* Adjusted icon size */}
                 Schedule Your Consultation
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-3 border-white text-white hover:bg-white hover:text-wellness-teal font-bold text-xl px-12 py-6 btn-hover bg-transparent">
+            <Button 
+              asChild 
+              variant="outline" 
+              size="lg" 
+              className="border-2 border-white text-white hover:bg-white hover:text-wellness-teal font-bold text-lg btn-hover bg-transparent backdrop-blur-sm hover:backdrop-blur-none" /* Adjusted classes, added subtle backdrop */
+            >
               <Link to="/contact">
-                <Phone className="mr-3 w-6 h-6" />
+                <Phone className="mr-3 w-5 h-5" /> {/* Adjusted icon size */}
                 Contact Our Team
               </Link>
             </Button>
