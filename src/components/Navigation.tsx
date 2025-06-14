@@ -1,9 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Stethoscope } from 'lucide-react'; // Removed Heart, using Stethoscope
+import { Menu, X, Stethoscope } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { SiteLogo } from './SiteLogo'; // Assuming SiteLogo will be created
+import { SiteLogo } from './SiteLogo';
+import { cn } from '@/lib/utils';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +16,7 @@ const Navigation = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50); // Increased scroll threshold
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -25,9 +25,8 @@ const Navigation = () => {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
-    { name: 'Specialists', path: '/doctors' }, // Renamed for clarity
+    { name: 'Specialists', path: '/doctors' },
     { name: 'Contact', path: '/contact' },
-    // { name: 'Doctor Portal', path: '/doctor' }, // Can be re-added if needed
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -37,7 +36,7 @@ const Navigation = () => {
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ease-in-out
         ${scrolled
           ? 'bg-background/85 backdrop-blur-xl shadow-md border-b border-border/70'
-          : 'bg-transparent border-b border-transparent py-2' // Transparent when at top
+          : 'bg-transparent border-b border-transparent py-2'
         }
       `}
     >
@@ -56,7 +55,7 @@ const Navigation = () => {
                   `relative px-4 py-2.5 text-[15px] font-medium rounded-lg group transition-all duration-200
                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`,
                   isActive(item.path)
-                    ? 'text-primary font-semibold' // Simpler active state
+                    ? 'text-primary font-semibold'
                     : 'text-foreground/80 hover:text-primary hover:bg-primary/10'
                 )}
               >
@@ -68,11 +67,11 @@ const Navigation = () => {
             ))}
             <Button
               asChild
-              size="default" // Using new default button size
-              className="ml-4" // Adjusted margin
+              size="default"
+              className="ml-4"
             >
               <Link to="/patient-intake">
-                <Stethoscope className="mr-2 w-5 h-5" /> {/* Icon size consistent with button defaults */}
+                <Stethoscope className="mr-2 w-5 h-5" />
                 Book Appointment
               </Link>
             </Button>
@@ -134,4 +133,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-

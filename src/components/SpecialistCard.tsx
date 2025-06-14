@@ -1,7 +1,7 @@
-
-import { Card, CardContent } from '@/components/ui/card'; // Base Card will now have refined styles
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star, Award, Clock, UserCheck } from 'lucide-react'; // Added UserCheck for verified
+import { Star, Clock, UserCheck } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface Specialist {
   name: string;
@@ -24,29 +24,29 @@ const SpecialistCard = ({ specialist, className = '', style }: SpecialistCardPro
     <Card 
       className={cn(
         `group relative overflow-hidden transition-all duration-300 ease-in-out 
-         hover:shadow-xl hover:-translate-y-1 bg-card`, // Using Card's base bg, enhanced hover
+         hover:shadow-xl hover:-translate-y-1 bg-card`,
         className
       )} 
       style={style}
     >
       {specialist.verified && (
         <Badge 
-          variant="default" // Use default button variant for badge styling
+          variant="default"
           className="absolute top-4 right-4 z-10 bg-[hsl(var(--premium-accent))] text-premium-accent-foreground border-0 shadow-md px-3 py-1.5 text-xs"
         >
           <UserCheck className="w-3.5 h-3.5 mr-1.5" />
           Verified Pro
         </Badge>
       )}
-      <CardContent className="p-0"> {/* Remove CardContent default padding if image is flush */}
+      <CardContent className="p-0">
         <div className="relative">
           <img
             src={specialist.image}
             alt={`Dr. ${specialist.name}`}
-            className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500 ease-out" // Full width image
+            className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div> {/* Gradient overlay for text */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
           
           <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
              <h3 className="text-xl font-bold mb-1 group-hover:text-[hsl(var(--premium-accent))] transition-colors duration-300">
@@ -61,7 +61,7 @@ const SpecialistCard = ({ specialist, className = '', style }: SpecialistCardPro
           </div>
         </div>
         
-        <div className="p-6"> {/* Content padding now here */}
+        <div className="p-6">
           <p className="text-foreground/80 leading-relaxed mb-5 text-sm line-clamp-3">
             {specialist.bio}
           </p>
@@ -87,4 +87,3 @@ const SpecialistCard = ({ specialist, className = '', style }: SpecialistCardPro
 };
 
 export default SpecialistCard;
-
