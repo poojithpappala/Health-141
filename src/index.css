@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -58,35 +57,40 @@
 
   body {
     @apply bg-gradient-to-br from-white via-[hsl(var(--premium-accent-light))] to-teal-50/5 text-foreground font-sans animate-page-fade-in; /* Updated gradient */
-    line-height: 1.75;
+    line-height: 1.75; /* Increased default line height for body */
     letter-spacing: -0.01em;
-    font-size: 17px;
+    font-size: 17px; /* Base font size */
+    color: hsl(var(--foreground)); /* Ensure body text defaults to high contrast foreground */
   }
 
   h1, h2, h3, h4, h5, h6 {
-    line-height: 1.15;
+    line-height: 1.2; /* Adjusted line-height for headings */
     font-family: 'Inter', 'system-ui', 'sans-serif';
-    @apply text-wellness-charcoal font-extrabold;
+    @apply text-wellness-charcoal font-extrabold mb-4; /* Added default bottom margin */
     letter-spacing: -0.015em;
   }
 
   h1 {
-    @apply text-5xl lg:text-6xl tracking-tight;
+    @apply text-5xl lg:text-6xl tracking-tight mb-6; /* Increased bottom margin */
   }
 
   h2 {
-    @apply text-4xl lg:text-5xl tracking-tight;
+    @apply text-4xl lg:text-5xl tracking-tight mb-5; /* Increased bottom margin */
   }
 
   h3 {
-    @apply text-2xl lg:text-3xl;
+    @apply text-2xl lg:text-3xl mb-3; /* Consistent bottom margin */
+  }
+
+  p {
+    @apply text-slate-800 leading-relaxed; /* Darker default paragraph color for better readability */
   }
 }
 
 /* Premium divider between sections */
 @layer components {
   .premium-divider {
-    @apply w-full border-0 h-px mt-16 mb-12; /* Thinner divider */
+    @apply w-full border-0 h-px mt-20 mb-16; /* Increased spacing around divider */
     background: linear-gradient(90deg, hsla(var(--primary), 0.02) 0%, hsla(var(--primary), 0.1) 50%, hsla(var(--primary), 0.02) 100%);
   }
 }
