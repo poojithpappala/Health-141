@@ -29,8 +29,8 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: '#007A75',
-					foreground: '#ffffff'
+					DEFAULT: 'hsl(var(--primary))', // Updated to use CSS variable
+					foreground: 'hsl(var(--primary-foreground))' // Updated to use CSS variable
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -45,7 +45,7 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
+					DEFAULT: 'hsl(var(--accent))', // Kept for general accents
 					foreground: 'hsl(var(--accent-foreground))'
 				},
 				popover: {
@@ -67,8 +67,10 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				wellness: {
-					teal: '#007A75',
-					charcoal: '#333333'
+					teal: 'hsl(var(--primary))', // Main brand teal, now deeper
+					charcoal: '#2D3748', // Slightly softer charcoal
+          gold: 'hsl(var(--premium-accent))', // New premium accent color
+          'gold-light': 'hsl(var(--premium-accent-light))',
 				}
 			},
 			borderRadius: {

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,16 +6,21 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 8%; /* Remains for components that might use it directly */
+    --foreground: 224 71% 4%; /* Darker, more sophisticated charcoal for text */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 8%;
+    --card-foreground: 224 71% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 8%;
+    --popover-foreground: 224 71% 4%;
 
-    --primary: 180 100% 24%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 178 80% 20%; /* Deeper, richer teal: hsl(178, 80%, 20%) approx #0A524E */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    --premium-accent: 35 65% 62%; /* Muted Gold/Bronze: hsl(35, 65%, 62%) approx #D4A26A */
+    --premium-accent-light: 35 65% 95%; /* Light version for backgrounds: hsl(35, 65%, 95%) approx #FBF6F0 */
+    --premium-accent-foreground: 20 15% 20%; /* Dark text for gold backgrounds */
+
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -22,17 +28,17 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
+    --accent: 210 40% 96.1%; /* General accent, keep as is or refine later */
     --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 55%; /* Slightly adjusted destructive red */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 180 100% 24%;
+    --border: 215 30% 88%; /* Softer border color */
+    --input: 215 30% 88%;
+    --ring: 178 80% 20%; /* Ring color matches new primary */
 
-    --radius: 0.75rem;
+    --radius: 0.85rem; /* Slightly increased radius for a softer feel */
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -51,7 +57,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-white via-teal-50/20 to-sky-50/10 text-slate-700 font-sans animate-page-fade-in;
+    @apply bg-gradient-to-br from-white via-[hsl(var(--premium-accent-light))] to-teal-50/5 text-foreground font-sans animate-page-fade-in; /* Updated gradient */
     line-height: 1.75;
     letter-spacing: -0.01em;
     font-size: 17px;
@@ -65,57 +71,57 @@
   }
 
   h1 {
-    @apply text-5xl lg:text-6xl tracking-tight; /* Reduced from 6xl/8xl */
+    @apply text-5xl lg:text-6xl tracking-tight;
   }
 
   h2 {
-    @apply text-4xl lg:text-5xl tracking-tight; /* Reduced from 5xl/6xl */
+    @apply text-4xl lg:text-5xl tracking-tight;
   }
 
   h3 {
-    @apply text-2xl lg:text-3xl; /* Reduced from 3xl/4xl */
+    @apply text-2xl lg:text-3xl;
   }
 }
 
 /* Premium divider between sections */
 @layer components {
   .premium-divider {
-    @apply w-full border-0 h-1 mt-16 mb-12 rounded-full;
-    background: linear-gradient(90deg, rgba(0,122,117,0.08) 0%, rgba(79,209,199,0.12) 50%, rgba(0,122,117,0.08) 100%);
+    @apply w-full border-0 h-px mt-16 mb-12; /* Thinner divider */
+    background: linear-gradient(90deg, hsla(var(--primary), 0.02) 0%, hsla(var(--primary), 0.1) 50%, hsla(var(--primary), 0.02) 100%);
   }
 }
 
 /* Glassmorphism and card polish */
 @layer utilities {
   .glass-premium {
-    @apply bg-white/70 backdrop-blur-3xl border border-white/40 shadow-[0_8px_32px_0_rgba(0,122,117,0.08),0_1.5px_0_0_rgba(0,122,117,0.06)];
-    border-radius: 2.3rem; /* This was already here, keeping it */
+    @apply bg-white/75 backdrop-blur-2xl border border-white/30 shadow-[0_8px_32px_0_hsla(var(--primary),0.06),0_1.5px_0_0_hsla(var(--primary),0.04)];
+    border-radius: 2rem; /* Softer radius */
   }
 
   .premium-shadow {
     box-shadow:
-      0 10px 20px -10px rgb(0 122 119 / 0.07),
-      0 1.5px 0 0 rgb(0 122 117 / 0.04),
+      0 10px 20px -10px hsla(var(--primary) / 0.07),
+      0 1.5px 0 0 hsla(var(--primary) / 0.04),
       0 0.5px 2px 0 rgba(0,0,0,0.03);
     transition: box-shadow 0.28s cubic-bezier(.2,.7,.4,1);
   }
 
   .premium-hover {
-    @apply ring-2 ring-teal-200/80;
+    @apply ring-2 ring-[hsl(var(--primary))]/50; /* Ring uses new primary */
     box-shadow:
-      0 10px 32px -10px rgb(0 122 119 / 0.09),
-      0 8px 36px -12px rgb(79 209 199 / 0.13);
+      0 10px 32px -10px hsla(var(--primary) / 0.09),
+      0 8px 36px -12px hsla(var(--premium-accent) / 0.13); /* Use accent for glow */
     transition: ring 0.35s, box-shadow 0.32s;
   }
 
   .btn-hover {
     transition: box-shadow 0.18s, transform 0.18s;
-    box-shadow: 0 4px 20px rgb(0 122 117 / 0.06);
+    box-shadow: 0 4px 20px hsla(var(--primary) / 0.06);
   }
 
   .btn-hover:hover, .btn-hover:active, .btn-hover:focus {
-    box-shadow: 0 7px 40px 0 rgb(0 122 117 / 0.13);
-    transform: translateY(-1px) scale(1.016);
+    box-shadow: 0 7px 40px 0 hsla(var(--primary) / 0.13);
+    transform: translateY(-1.5px) scale(1.018); /* Enhanced hover effect */
   }
 
   /* Subtle section fade/slide animation */
@@ -137,7 +143,7 @@
   }
 
   .icon-premium {
-    filter: drop-shadow(0 1px 12px rgba(0,122,117,0.07));
+    filter: drop-shadow(0 1px 12px hsla(var(--primary),0.07));
   }
 }
 
@@ -145,29 +151,34 @@
 @layer components {
   .card-premium {
     @apply glass-premium shadow-xl transition-all duration-500 hover:premium-hover;
-    padding: 2.5rem 2rem;
-    border-radius: 1.7rem;
+    padding: 2.25rem 1.75rem; /* Adjusted padding */
+    border-radius: 1.5rem; /* Adjusted radius */
   }
 
   .section-container {
     @apply max-w-7xl mx-auto px-6 sm:px-12 lg:px-20;
   }
   .hero-section {
-    @apply pt-28 pb-24 lg:pt-32 lg:pb-32; /* Adjusted padding: prev py-36 lg:py-48. Navbar is h-20 (5rem). pt-28 = 7rem (2rem gap). lg:pt-32 = 8rem (3rem gap) */
+    @apply pt-28 pb-24 lg:pt-32 lg:pb-32; 
   }
   .content-section {
-    @apply py-16 lg:py-20; /* Adjusted padding: prev py-20 lg:py-28 */
+    @apply py-16 lg:py-20;
   }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-wellness-charcoal/95 via-slate-900 to-wellness-teal bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-wellness-charcoal via-slate-800 to-[hsl(var(--primary))] bg-clip-text text-transparent; /* Updated to new primary */
   }
 
-  .teal-gradient {
-    background: linear-gradient(135deg, #007A75 0%, #14b8a6 70%, #4FD1C7 100%);
+  .brand-gradient { /* Renamed from teal-gradient for clarity */
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsla(var(--primary), 0.8) 70%, hsla(var(--primary), 0.6) 100%);
   }
+
+  .accent-gradient { /* New gradient for accents */
+    background: linear-gradient(135deg, hsl(var(--premium-accent)) 0%, hsla(var(--premium-accent), 0.8) 100%);
+  }
+  
 
   .floating-animation {
     animation: float 7.3s ease-in-out infinite;
@@ -175,6 +186,6 @@
 
   @keyframes float {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
-    60% { transform: translateY(-18px) rotate(2deg); } /* Was -12px and 1.5deg, updated to match previous */
+    60% { transform: translateY(-18px) rotate(2deg); } 
   }
 }
