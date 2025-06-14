@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart, Stethoscope, Sparkles } from 'lucide-react';
+import { Menu, X, Heart, Stethoscope } from 'lucide-react'; // Removed Sparkles
 import { Button } from '@/components/ui/button';
 
 const Navigation = () => {
@@ -11,11 +11,11 @@ const Navigation = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setIsOpen(false);
+    setIsOpen(false); // Close mobile menu on navigation
   }, [location.pathname]);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 16);
+    const handleScroll = () => setScrolled(window.scrollY > 20); // Increased threshold slightly
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -33,64 +33,56 @@ const Navigation = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-[80] transition-all duration-500
+      className={`fixed top-0 w-full z-[80] transition-all duration-300
         ${scrolled
-          ? 'bg-white/90 backdrop-blur-2xl shadow-[0_8px_36px_0_rgba(0,122,117,0.12),0_1.5px_0_0_rgba(0,122,117,0.04)] border-b border-teal-50/80'
-          : 'bg-white/70 backdrop-blur-xl shadow border-b border-transparent'
+          ? 'bg-white/80 backdrop-blur-lg shadow-md border-b border-slate-200/60'
+          : 'bg-white/60 backdrop-blur-md border-b border-transparent'
         }
-        glass-premium`}
-      style={{ WebkitBackdropFilter: 'blur(21px)', backdropFilter: 'blur(21px)' }}
+      `}
+      // Removed WebkitBackdropFilter style, Tailwind's backdrop-blur should handle it
     >
       <div className="section-container">
-        <div className="flex justify-between items-center h-28">
+        <div className="flex justify-between items-center h-20"> {/* Reduced height from h-28 */}
           {/* Logo Area */}
           <Link to="/" className="flex items-center space-x-3 group select-none">
-            <div className="relative w-[60px] h-[60px] bg-gradient-to-br from-wellness-teal to-teal-400 rounded-2xl flex items-center justify-center luxury-glow transition-all duration-200">
-              <Heart className="w-8 h-8 text-white drop-shadow-xl icon-premium" />
-              <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-yellow-400 floating-animation" />
-              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-gradient-to-tr from-yellow-400/80 to-teal-400/90 rounded-full blur-[5px] opacity-85" />
+            <div className="relative w-12 h-12 bg-gradient-to-br from-wellness-teal to-teal-400 rounded-lg flex items-center justify-center shadow-sm transition-all duration-200 group-hover:shadow-md"> {/* Simplified size and shadow */}
+              <Heart className="w-6 h-6 text-white drop-shadow-sm icon-premium" /> {/* Simplified size */}
+              {/* Removed Sparkles and bottom dot for minimalism */}
             </div>
-            <span className="text-gradient font-extrabold text-4xl tracking-tight drop-shadow-[0_3px_12px_rgba(0,122,117,0.11)] pt-1">
+            <span className="text-gradient font-bold text-3xl tracking-tight drop-shadow-[0_2px_8px_rgba(0,122,117,0.1)] pt-0.5"> {/* Adjusted font size and shadow */}
               WellnessPortal
             </span>
           </Link>
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1 xl:space-x-4">
+          <div className="hidden lg:flex items-center space-x-2 xl:space-x-3"> {/* Reduced spacing */}
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.path}
                 tabIndex={0}
                 className={
-                  `relative px-5 py-2 text-base font-semibold rounded-xl group transition-all duration-300
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wellness-teal/60
-                  after:premium-divider`
+                  `relative px-4 py-2 text-sm font-medium rounded-lg group transition-all duration-200
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wellness-teal/60 focus-visible:ring-offset-2` // Added offset for better focus visibility
                   +
                   (isActive(item.path)
-                    ? ' text-white bg-gradient-to-r from-teal-500 to-wellness-teal shadow-lg premium-shadow'
-                    : ' text-wellness-charcoal/90 hover:bg-gradient-to-r hover:from-teal-100 hover:to-white hover:text-wellness-teal/90 hover:premium-shadow'
+                    ? ' text-white bg-wellness-teal shadow-sm' // Simplified active state
+                    : ' text-slate-700 hover:bg-teal-50/70 hover:text-wellness-teal' // Simplified hover
                   )
                 }
-                style={{
-                  minWidth: 118,
-                  textAlign: 'center',
-                  fontWeight: 600,
-                  letterSpacing: '-.04em'
-                }}
+                // Removed inline style for minWidth and letterSpacing
               >
                 <span className="relative z-10">{item.name}</span>
-                {!isActive(item.path) && (
-                  <span className="absolute inset-0 transition-transform duration-300 ease-out scale-x-0 group-hover:scale-x-100 origin-left bg-gradient-to-r from-wellness-teal/5 via-teal-400/7 to-white/0 pointer-events-none" />
-                )}
+                {/* Removed complex hover underline effect */}
               </Link>
             ))}
             <Button
               asChild
-              className="bg-gradient-to-r from-teal-400 via-wellness-teal to-teal-600 hover:from-teal-600 hover:via-wellness-teal hover:to-teal-400
-                 text-white font-semibold px-7 h-12 rounded-2xl btn-hover premium-shadow border-0 focus-visible:ring-2 focus-visible:ring-teal-400 tracking-tight text-lg"
+              size="sm" // Using a slightly smaller button for a more refined look in the nav
+              className="ml-3 bg-gradient-to-r from-teal-500 via-wellness-teal to-teal-600 hover:from-teal-600 hover:via-wellness-teal hover:to-teal-500
+                 text-white font-semibold px-5 h-10 rounded-lg btn-hover premium-shadow border-0 focus-visible:ring-2 focus-visible:ring-teal-400/80 tracking-normal text-sm" // Adjusted padding, height, tracking
             >
-              <Link to="/patient-intake" className="flex items-center gap-2">
-                <Stethoscope className="w-5 h-5" />
+              <Link to="/patient-intake" className="flex items-center gap-1.5"> {/* Reduced gap */}
+                <Stethoscope className="w-4 h-4" /> {/* Slightly smaller icon */}
                 Book Appointment
               </Link>
             </Button>
@@ -101,34 +93,36 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
-              className="w-14 h-14 rounded-2xl hover:bg-slate-100/80 focus-visible:ring-2 focus-visible:ring-teal-400"
+              className="w-12 h-12 rounded-lg hover:bg-slate-100/80 focus-visible:ring-2 focus-visible:ring-teal-400" // Adjusted size
               aria-label="Toggle navigation menu"
             >
-              {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />} {/* Adjusted icon size */}
             </Button>
           </div>
         </div>
         {/* Mobile Navigation Menu */}
         <div
           className={`
-            lg:hidden overflow-hidden transition-all duration-400
-            ${isOpen ? 'max-h-[430px] opacity-100' : 'max-h-0 opacity-0 pointer-events-none select-none'}
+            lg:hidden overflow-hidden transition-all duration-300 ease-in-out
+            ${isOpen ? 'max-h-[480px] opacity-100' : 'max-h-0 opacity-0 pointer-events-none select-none'}
           `}
         >
-          <div className={`border-t bg-gradient-to-br from-white/98 to-slate-100/92 backdrop-blur-2xl rounded-b-3xl shadow-2xl border-x border-b border-teal-100/35 transition-all duration-400 ${isOpen ? 'animate-fade-in' : ''}`}>
-            <div className="px-7 pt-7 pb-9 space-y-4">
+          {/* Added rounded-b-xl for consistency with other rounded elements */}
+          <div className={`border-t bg-white/95 backdrop-blur-xl rounded-b-xl shadow-xl border-x border-b border-slate-200/70 transition-all duration-300 ${isOpen ? 'animate-fade-in' : ''}`}>
+            <div className="px-5 pt-5 pb-7 space-y-2"> {/* Adjusted padding and spacing */}
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.path}
                   className={`
-                    block px-7 py-4 text-lg font-semibold rounded-xl transition-all duration-300
-                    outline-none focus-visible:ring-2 focus-visible:ring-teal-400
-                    ${isActive(item.path)
-                      ? 'text-white bg-gradient-to-r from-teal-500 to-wellness-teal shadow-lg premium-shadow'
-                      : 'text-wellness-charcoal/90 hover:bg-gradient-to-r hover:from-teal-100 hover:to-white hover:text-wellness-teal/90 hover:premium-shadow'
-                    }
-                  `}
+                    block px-5 py-3 text-base font-medium rounded-lg transition-all duration-200
+                    outline-none focus-visible:ring-2 focus-visible:ring-teal-400/80 focus-visible:ring-offset-2`
+                    +
+                    (isActive(item.path)
+                      ? 'text-white bg-wellness-teal shadow-sm' // Consistent active state
+                      : 'text-slate-700 hover:bg-teal-50/70 hover:text-wellness-teal' // Consistent hover
+                    )
+                  }
                   onClick={() => setIsOpen(false)}
                 >
                   <span className="relative z-10">{item.name}</span>
@@ -136,8 +130,9 @@ const Navigation = () => {
               ))}
               <Button
                 asChild
-                className="w-full bg-gradient-to-r from-teal-400 via-wellness-teal to-teal-600 hover:from-teal-600 hover:via-wellness-teal hover:to-teal-400
-                  text-white font-semibold py-4 rounded-2xl btn-hover shadow-xl mt-5 border-0 transition-all duration-300 text-lg"
+                size="lg" // Use larger button in mobile menu for easier tapping
+                className="w-full mt-4 bg-gradient-to-r from-teal-500 via-wellness-teal to-teal-600 hover:from-teal-600 hover:via-wellness-teal hover:to-teal-500
+                  text-white font-semibold py-3 rounded-lg btn-hover shadow-lg border-0 transition-all duration-300 text-base" // Adjusted styles
               >
                 <Link to="/patient-intake" className="flex items-center gap-2 justify-center" onClick={() => setIsOpen(false)}>
                   <Stethoscope className="w-5 h-5" />
@@ -153,3 +148,4 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
