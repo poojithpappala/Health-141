@@ -11,9 +11,9 @@ import {
   ArrowRight, 
   MessageSquare,
   Calendar,
-  Stethoscope,
-  Shield,
-  Sparkles
+  ShieldCheck,
+  Sparkles,
+  LifeBuoy
 } from 'lucide-react';
 import { openTidioChat } from '@/utils/tidioUtils';
 import EmergencyContactDialog from '@/components/EmergencyContactDialog';
@@ -24,53 +24,49 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: MapPin,
-      title: 'Premium Location',
-      details: ['123 Healthcare Blvd', 'Medical District', 'New York, NY 10001'],
-      color: 'from-blue-500 to-blue-600'
+      title: 'Our Main Clinic',
+      details: ['123 Wellness Way', 'Health District', 'New York, NY 10001'],
     },
     {
       icon: Phone,
-      title: '24/7 Support',
-      details: ['Emergency: (555) 911-HELP', 'Appointments: (555) 123-CARE', 'Concierge: (555) 456-7890'],
-      color: 'from-green-500 to-green-600'
+      title: 'Dedicated Support',
+      details: ['Emergency: (555) 911-HELP', 'Appointments: (555) 123-CARE'],
     },
     {
       icon: Mail,
-      title: 'Digital Contact',
-      details: ['care@wellnessportal.com', 'appointments@wellnessportal.com', 'support@wellnessportal.com'],
-      color: 'from-purple-500 to-purple-600'
+      title: 'Email Us',
+      details: ['care@wellnessportal.com', 'support@wellnessportal.com'],
     },
     {
       icon: Clock,
-      title: 'Flexible Hours',
-      details: ['Monday - Friday: 6:00 AM - 10:00 PM', 'Saturday: 8:00 AM - 8:00 PM', 'Sunday: 9:00 AM - 6:00 PM'],
-      color: 'from-orange-500 to-orange-600'
+      title: 'Clinic Hours',
+      details: ['Mon - Fri: 7 AM - 9 PM', 'Sat: 9 AM - 7 PM', 'Sun: 10 AM - 5 PM'],
     }
   ];
 
   const quickActions = [
     {
       icon: Calendar,
-      title: 'Schedule Premium Care',
-      description: 'Book your appointment with our world-class specialists',
+      title: 'Schedule Appointment',
+      description: 'Book your visit with our top-tier specialists.',
       link: '/patient-intake',
-      color: 'bg-wellness-teal',
+      buttonText: 'Book Now',
       action: null
     },
     {
       icon: MessageSquare,
-      title: 'Live Concierge Chat',
-      description: '24/7 premium support with dedicated care coordinators',
+      title: 'Live Chat Support',
+      description: 'Connect with our care team instantly for assistance.',
       link: '#',
-      color: 'bg-blue-600',
+      buttonText: 'Start Chat',
       action: openTidioChat
     },
     {
-      icon: Stethoscope,
-      title: 'Emergency Care',
-      description: 'Immediate medical attention when you need it most',
+      icon: LifeBuoy,
+      title: 'Emergency Assistance',
+      description: 'Immediate contact for urgent medical situations.',
       link: '#',
-      color: 'bg-red-600',
+      buttonText: 'Get Help',
       action: () => setEmergencyDialogOpen(true)
     }
   ];
@@ -82,128 +78,137 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-20 md:pt-24 animate-page-entry">
       {/* Hero Section */}
-      <section className="hero-section hero-pattern relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50/90 via-white/60 to-blue-50/80" />
+      <section className="hero-section relative overflow-hidden bg-gradient-to-br from-background to-secondary/30">
+        <div className="absolute inset-0 hero-pattern opacity-5" />
         <div className="section-container relative z-10">
-          <div className="text-center mb-20">
-            <Badge className="bg-wellness-teal/10 text-wellness-teal border-wellness-teal/20 mb-8 px-8 py-3 rounded-full text-lg font-semibold">
-              <Sparkles className="w-5 h-5 mr-2" />
-              Premium Healthcare Access
+          <div className="text-center mb-16 md:mb-20">
+            <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 mb-6 px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide">
+              <Sparkles className="w-4 h-4 mr-2 text-premium-accent" />
+              Your Health, Our Priority
             </Badge>
-            <h1 className="heading-primary mb-8 leading-tight">
-              Connect with Our
-              <span className="block bg-gradient-to-r from-wellness-teal to-teal-400 bg-clip-text text-transparent">
-                Healthcare Excellence Team
-              </span>
+            <h1 className="heading-primary mb-6">
+              Get in Touch With Us
             </h1>
-            <p className="text-premium mb-12 max-w-4xl mx-auto">
-              Experience personalized, white-glove service with our dedicated healthcare team. 
-              We're here to provide exceptional support for all your medical needs.
+            <p className="subheading mb-10 max-w-3xl mx-auto">
+              We're here to provide exceptional support for all your healthcare needs. Reach out through your preferred channel.
             </p>
           </div>
 
           {/* Quick Actions */}
-          <div className="grid md:grid-cols-3 gap-10 mb-16">
-            {quickActions.map((action, index) => (
-              <div key={index} className="card-premium p-10 text-center group hover:scale-105 transition-all duration-300">
-                <div className={`w-20 h-20 ${action.color} rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-300`}>
-                  <action.icon className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-wellness-charcoal mb-4">{action.title}</h3>
-                <p className="text-slate-600 mb-8 leading-relaxed text-lg">{action.description}</p>
-                {action.link === '#' ? (
-                  <Button 
-                    onClick={() => handleQuickAction(action.action, action.link)}
-                    className="w-full btn-primary text-lg py-4"
-                  >
-                    Get Started
-                    <ArrowRight className="ml-3 w-5 h-5" />
-                  </Button>
-                ) : (
-                  <Button asChild className="w-full btn-primary text-lg py-4">
-                    <Link to={action.link}>
-                      Get Started
-                      <ArrowRight className="ml-3 w-5 h-5" />
-                    </Link>
-                  </Button>
-                )}
-              </div>
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-16 md:mb-24">
+            {quickActions.map((actionItem, index) => (
+              <Card key={index} className="text-center group hover:shadow-lg transition-all duration-300 ease-out hover:-translate-y-1 p-0">
+                <CardHeader className="items-center pt-8 pb-4">
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 ease-out bg-primary/10 text-primary group-hover:scale-110`}>
+                    <actionItem.icon className="w-8 h-8" />
+                  </div>
+                  <CardTitle className="text-2xl">{actionItem.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-6">
+                  <p className="text-muted-foreground mb-6 text-base">{actionItem.description}</p>
+                  {actionItem.link === '#' ? (
+                    <Button 
+                      onClick={() => handleQuickAction(actionItem.action, actionItem.link)}
+                      variant={index === 2 ? "destructive" : "default"}
+                      size="lg"
+                      className="w-full"
+                    >
+                      {actionItem.buttonText}
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                  ) : (
+                    <Button asChild variant="default" size="lg" className="w-full">
+                      <Link to={actionItem.link}>
+                        {actionItem.buttonText}
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </Link>
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
       {/* Contact Information */}
-      <section className="content-section">
+      <section className="content-section bg-background">
         <div className="section-container">
-          <div className="text-center mb-20">
-            <h2 className="heading-secondary mb-6">
-              Multiple Ways to Connect
+          <div className="text-center mb-16 md:mb-20">
+            <h2 className="heading-secondary mb-4">
+              Detailed Contact Information
             </h2>
-            <p className="text-premium max-w-3xl mx-auto">
-              Choose your preferred method of communication for personalized healthcare support
+            <p className="subheading max-w-2xl mx-auto">
+              Find all the ways you can connect with our dedicated team and facilities.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {contactInfo.map((info, index) => (
-              <div key={index} className="card-premium p-8 text-center group hover:scale-105 transition-all duration-300">
-                <div className={`w-16 h-16 bg-gradient-to-br ${info.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <info.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-wellness-charcoal mb-4">{info.title}</h3>
-                <div className="space-y-3">
-                  {info.details.map((detail, detailIndex) => (
-                    <p key={detailIndex} className="text-slate-600 font-medium">{detail}</p>
-                  ))}
-                </div>
-              </div>
+              <Card key={index} className="text-center group hover:shadow-lg transition-all duration-300 ease-out p-0">
+                <CardHeader className="items-center pt-8 pb-4">
+                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 ease-out bg-primary/10 text-primary group-hover:scale-110`}>
+                      <info.icon className="w-7 h-7" />
+                    </div>
+                    <CardTitle className="text-xl">{info.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-8">
+                  <div className="space-y-1.5">
+                    {info.details.map((detail, detailIndex) => (
+                      <p key={detailIndex} className="text-muted-foreground font-medium text-sm">{detail}</p>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
       {/* Location Section */}
-      <section className="content-section bg-gradient-to-b from-slate-50/50 to-white">
+      <section className="content-section bg-secondary/30">
         <div className="section-container">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <h2 className="heading-secondary mb-8">
-                Visit Our Medical Center
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="animate-section-entry">
+              <h2 className="heading-secondary mb-6">
+                Visit Our State-of-the-Art Clinic
               </h2>
-              <p className="text-premium mb-8 leading-relaxed">
-                Our state-of-the-art medical facility is strategically located in the heart of the medical district, 
-                featuring cutting-edge technology and luxurious patient amenities.
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Our modern medical facility is designed for your comfort and equipped with advanced technology, conveniently located for easy access.
               </p>
-              <div className="space-y-6 mb-10">
-                <div className="flex items-center">
-                  <MapPin className="w-6 h-6 text-wellness-teal mr-4" />
-                  <span className="text-slate-700 font-medium text-lg">123 Healthcare Blvd, Medical District, NY 10001</span>
-                </div>
-                <div className="flex items-center">
-                  <Clock className="w-6 h-6 text-wellness-teal mr-4" />
-                  <span className="text-slate-700 font-medium text-lg">Extended hours, 7 days a week</span>
-                </div>
-                <div className="flex items-center">
-                  <Shield className="w-6 h-6 text-wellness-teal mr-4" />
-                  <span className="text-slate-700 font-medium text-lg">Valet parking & concierge services</span>
-                </div>
+              <div className="space-y-5 mb-10">
+                {[
+                  { icon: MapPin, text: "123 Wellness Way, Health District, NY 10001" },
+                  { icon: Clock, text: "Open 7 days a week with extended hours" },
+                  { icon: ShieldCheck, text: "Valet Parking & Accessible Facilities" }
+                ].map(item => (
+                  <div key={item.text} className="flex items-start">
+                    <item.icon className="w-6 h-6 text-primary mr-4 mt-1 shrink-0" />
+                    <span className="text-foreground/80 font-medium text-base">{item.text}</span>
+                  </div>
+                ))}
               </div>
-              <Button asChild size="lg" className="btn-primary text-xl px-10 py-5">
+              <Button variant="premium" asChild size="lg" className="text-base px-8 py-3">
                 <Link to="/patient-intake">
                   Schedule Your Visit
-                  <ArrowRight className="ml-3 w-6 h-6" />
+                  <ArrowRight className="ml-2.5 w-5 h-5" />
                 </Link>
               </Button>
             </div>
-            <div className="relative">
-              <div className="w-full h-[500px] platinum-gradient rounded-3xl flex items-center justify-center premium-shadow">
-                <div className="text-center">
-                  <MapPin className="w-20 h-20 text-wellness-teal mx-auto mb-6" />
-                  <h3 className="text-3xl font-bold text-wellness-charcoal mb-4">Premium Location</h3>
-                  <p className="text-slate-600 text-lg">Interactive map with detailed directions</p>
+            <div className="relative aspect-video lg:aspect-square rounded-2xl overflow-hidden shadow-xl animate-section-entry" style={{animationDelay: '0.2s'}}>
+              {/* Placeholder for a map iframe or static map image */}
+              <img 
+                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdG9yJTIwb2ZmaWNlfGVufDB8fDB8fHww&auto=format&fit=crop&w=1000&q=80" 
+                alt="Clinic Location Map Placeholder" 
+                className="w-full h-full object-cover" 
+              />
+              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                <div className="text-center p-8 bg-background/80 backdrop-blur-md rounded-lg shadow-lg">
+                  <MapPin className="w-12 h-12 text-primary mx-auto mb-3" />
+                  <h3 className="text-xl font-semibold text-foreground mb-1">Wellness Portal Clinic</h3>
+                  <p className="text-sm text-muted-foreground">Interactive Map Coming Soon</p>
                 </div>
               </div>
             </div>
@@ -212,26 +217,36 @@ const Contact = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="content-section teal-gradient relative overflow-hidden">
+      <section className="content-section brand-gradient-bg relative overflow-hidden">
         <div className="absolute inset-0 hero-pattern opacity-10" />
         <div className="section-container relative z-10 text-center">
-          <h2 className="text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight">
-            Ready to Begin Your Healthcare Journey?
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight text-balance">
+            Ready to Prioritize Your Wellbeing?
           </h2>
-          <p className="text-2xl text-teal-100 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Don't wait to invest in your health. Take the first step towards premium healthcare today.
+          <p className="text-lg md:text-xl text-primary-foreground/80 mb-10 max-w-3xl mx-auto leading-relaxed text-balance">
+            Take the first step towards exceptional healthcare. Book an appointment or explore our comprehensive services today.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button asChild size="lg" className="bg-white text-wellness-teal hover:bg-slate-50 font-bold text-xl px-12 py-6 btn-hover premium-shadow">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
+            <Button 
+              variant="premium"
+              asChild 
+              size="lg" 
+              className="bg-white text-primary hover:bg-slate-50 shadow-lg hover:shadow-xl !text-premium-accent-foreground"
+            >
               <Link to="/patient-intake">
-                Book Premium Appointment
-                <ArrowRight className="ml-3 w-6 h-6" />
+                Book Appointment
+                <ArrowRight className="ml-2.5 w-5 h-5" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-3 border-white text-white hover:bg-white hover:text-wellness-teal font-bold text-xl px-12 py-6 btn-hover bg-white/10 backdrop-blur-sm">
+            <Button 
+              variant="outline" 
+              asChild 
+              size="lg" 
+              className="border-2 border-white/80 text-white hover:bg-white/10 hover:border-white backdrop-blur-sm shadow-lg hover:shadow-xl"
+            >
               <Link to="/services">
-                Explore Premium Services
-                <Sparkles className="ml-3 w-6 h-6" />
+                Explore Services
+                <Sparkles className="ml-2.5 w-5 h-5" />
               </Link>
             </Button>
           </div>

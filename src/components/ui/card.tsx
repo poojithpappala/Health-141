@@ -10,7 +10,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-xl border bg-card text-card-foreground soft-shadow", // Using var(--radius) from tailwind config which is now 0.75rem, changed to rounded-xl, applied soft-shadow
+      "rounded-lg border bg-card text-card-foreground shadow-soft", // Using var(--radius-lg), refined shadow
       className
     )}
     {...props}
@@ -24,7 +24,7 @@ const CardHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-2 p-6", className)} // Reduced space-y slightly
+    className={cn("flex flex-col space-y-1.5 p-6", className)} // Consistent padding
     {...props}
   />
 ))
@@ -37,7 +37,7 @@ const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "text-2xl font-semibold leading-tight tracking-tight", // Adjusted leading and tracking
+      "text-xl font-semibold leading-none tracking-tight text-foreground", // Adjusted size and color
       className
     )}
     {...props}
@@ -51,7 +51,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-muted-foreground leading-snug", className)} // Adjusted leading
+    className={cn("text-sm text-muted-foreground leading-normal", className)} // Adjusted leading
     {...props}
   />
 ))
@@ -78,4 +78,3 @@ const CardFooter = React.forwardRef<
 CardFooter.displayName = "CardFooter"
 
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
-

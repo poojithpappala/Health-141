@@ -6,25 +6,26 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-base font-medium ring-offset-background transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 btn-hover-effect [&_svg]:size-4.5 [&_svg]:shrink-0", // Adjusted base, added btn-hover-effect, slightly larger icon
+  "inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60 btn-hover-effect [&_svg]:size-5 [&_svg]:shrink-0", // Refined base, slightly larger icon default
   {
     variants: {
       variant: {
-        default: "brand-gradient-bg text-primary-foreground hover:opacity-90 soft-shadow", // Using brand gradient
+        default: "brand-gradient-bg text-primary-foreground hover:opacity-95 shadow-soft", // Using brand gradient, refined hover, softer shadow
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 soft-shadow",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-soft",
         outline:
-          "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground soft-shadow", // Transparent bg, uses accent for hover
+          "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground shadow-sm", // Softer shadow for outline
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 soft-shadow",
-        ghost: "hover:bg-accent hover:text-accent-foreground", // Accent for hover
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-soft",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline focus-visible:ring-0 focus-visible:ring-offset-0", // No ring for link
+        premium: "accent-gradient-bg text-premium-accent-foreground hover:opacity-95 shadow-md", // New premium variant
       },
       size: {
-        default: "h-11 px-6 py-2.5", // Slightly larger default size for premium feel
-        sm: "h-10 rounded-md px-4",   // Adjusted sm
-        lg: "h-12 rounded-lg px-8 text-base", // Adjusted lg
-        icon: "h-11 w-11", // Adjusted icon size
+        default: "h-11 px-6 py-2.5 text-[15px]", // Consistent sizing
+        sm: "h-10 rounded-md px-4 text-sm",
+        lg: "h-12 rounded-lg px-8 text-base",
+        icon: "h-11 w-11",
       },
     },
     defaultVariants: {
@@ -55,4 +56,3 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button"
 
 export { Button, buttonVariants }
-

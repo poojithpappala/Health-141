@@ -15,12 +15,16 @@ export default {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'2xl': '1400px'
+				'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+				'2xl': '1536px', // Increased max width for 2xl
 			}
 		},
 		extend: {
 			fontFamily: {
-				'sans': ['Inter', 'system-ui', 'sans-serif'],
+				'sans': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', '"Noto Sans"', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"', '"Noto Color Emoji"'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -32,6 +36,11 @@ export default {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
 				},
+        'premium-accent': {
+            DEFAULT: 'hsl(var(--premium-accent))',
+            foreground: 'hsl(var(--premium-accent-foreground))',
+            light: 'hsl(var(--premium-accent-light))'
+        },
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
@@ -56,7 +65,7 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
+				sidebar: { // ... keep existing code (sidebar color definitions)
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
 					primary: 'hsl(var(--sidebar-primary))',
@@ -66,20 +75,24 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				wellness: {
-					teal: 'hsl(var(--primary))', // Main brand teal
-					charcoal: 'hsl(var(--foreground))', // Use main foreground for charcoal
+				wellness: { // Kept for potential specific use, but primary/accent should be preferred
+					teal: 'hsl(var(--primary))', 
+					charcoal: 'hsl(var(--foreground))', 
           gold: 'hsl(var(--premium-accent))',
           'gold-light': 'hsl(var(--premium-accent-light))',
 				}
 			},
-			borderRadius: { // Consistent border radius using CSS variable
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 0.25rem)', // Slightly smaller than lg
-				sm: 'calc(var(--radius) - 0.4rem)',  // Even smaller
-				'2xl': 'calc(var(--radius) + 0.5rem)' // Larger for specific elements
+			borderRadius: {
+				lg: 'var(--radius-lg)', // Use new CSS var
+				DEFAULT: 'var(--radius)',    // Default border radius
+				md: 'var(--radius)',      // Consistent with default
+				sm: 'var(--radius-sm)',   // Use new CSS var
+				xl: 'calc(var(--radius-lg) + 0.25rem)', // Slightly larger than lg
+        '2xl': 'calc(var(--radius-lg) + 0.5rem)',
+        '3xl': 'calc(var(--radius-lg) + 1rem)', // For very rounded elements
+        full: '9999px',
 			},
-			keyframes: {
+			keyframes: { // ... keep existing code (keyframes for accordion, fade-in, slide-up)
 				'accordion-down': {
 					from: {
 						height: '0'
@@ -96,7 +109,7 @@ export default {
 						height: '0'
 					}
 				},
-				'fade-in': { // Refined fade-in for smoother entry
+				'fade-in': { 
 					'0%': {
 						opacity: '0',
 						transform: 'translateY(12px)'
@@ -109,7 +122,7 @@ export default {
 				'slide-up': {
 					'0%': {
 						opacity: '0',
-						transform: 'translateY(20px)' // Softened slide
+						transform: 'translateY(20px)' 
 					},
 					'100%': {
 						opacity: '1',
@@ -117,14 +130,19 @@ export default {
 					}
 				}
 			},
-			animation: {
-				'accordion-down': 'accordion-down 0.25s ease-out', // Slightly smoother
-				'accordion-up': 'accordion-up 0.25s ease-out', // Slightly smoother
-				'fade-in': 'fade-in 0.5s cubic-bezier(0.215, 0.61, 0.355, 1)', // Smoother easing
-				'slide-up': 'slide-up 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)' // Smoother easing
-			}
+			animation: { // ... keep existing code (animation definitions)
+				'accordion-down': 'accordion-down 0.25s ease-out', 
+				'accordion-up': 'accordion-up 0.25s ease-out', 
+				'fade-in': 'fade-in 0.5s cubic-bezier(0.215, 0.61, 0.355, 1)', 
+				'slide-up': 'slide-up 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)' 
+			},
+      boxShadow: { // Adding more refined shadows
+        'soft': '0 2px 8px -1px hsla(var(--foreground), 0.04), 0 4px 12px -2px hsla(var(--foreground), 0.08)',
+        'md': '0 4px 12px -2px hsla(var(--foreground), 0.05), 0 6px 20px -3px hsla(var(--foreground), 0.1)',
+        'lg': '0 8px 24px -4px hsla(var(--foreground), 0.06), 0 12px 32px -6px hsla(var(--foreground), 0.12)',
+        'xl': '0 12px 32px -6px hsla(var(--foreground), 0.08), 0 20px 50px -10px hsla(var(--foreground), 0.15)',
+      }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
-
