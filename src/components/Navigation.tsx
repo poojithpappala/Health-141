@@ -10,7 +10,10 @@ const Navigation = () => {
 
   const navItems = [
     { name: 'Home', path: '/' },
-    { name: 'Book Appointment', path: '/patient-intake' },
+    { name: 'About', path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Doctors', path: '/doctors' },
+    { name: 'Contact', path: '/contact' },
     { name: 'Doctor Portal', path: '/doctor' },
   ];
 
@@ -30,7 +33,7 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -50,7 +53,7 @@ const Navigation = () => {
             >
               <Link to="/patient-intake">
                 <Stethoscope className="w-4 h-4 mr-2" />
-                Get Started
+                Book Now
               </Link>
             </Button>
           </div>
@@ -93,7 +96,7 @@ const Navigation = () => {
               >
                 <Link to="/patient-intake" onClick={() => setIsOpen(false)}>
                   <Stethoscope className="w-4 h-4 mr-2" />
-                  Get Started
+                  Book Now
                 </Link>
               </Button>
             </div>

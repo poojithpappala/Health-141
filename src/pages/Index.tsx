@@ -3,9 +3,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Shield, Heart, Users, Clock, ArrowRight, CheckCircle, Star, Award, Calendar, Phone, Mail } from 'lucide-react';
-import TestimonialCarousel from '@/components/TestimonialCarousel';
-import SpecialistCard from '@/components/SpecialistCard';
+import { Shield, Heart, Users, Clock, ArrowRight, CheckCircle, Star, Award, Calendar, Phone } from 'lucide-react';
 
 const Index = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -106,6 +104,27 @@ const Index = () => {
     { number: '500+', label: 'Expert Doctors' },
     { number: '50+', label: 'Specialties' },
     { number: '4.9/5', label: 'Patient Rating' }
+  ];
+
+  const testimonials = [
+    {
+      name: 'Sarah Johnson',
+      text: 'Exceptional care and professional service. The online booking system made everything so convenient.',
+      rating: 5,
+      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b900?w=60&h=60&fit=crop&face=true'
+    },
+    {
+      name: 'Michael Brown',
+      text: 'Dr. Khan saved my life. The cardiac procedure was seamless and the recovery was faster than expected.',
+      rating: 5,
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&face=true'
+    },
+    {
+      name: 'Emily Davis',
+      text: 'Amazing experience from start to finish. The staff is incredibly caring and knowledgeable.',
+      rating: 5,
+      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&face=true'
+    }
   ];
 
   return (
@@ -209,7 +228,33 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <TestimonialCarousel />
+              
+              {/* Testimonials Carousel */}
+              <div className="bg-white rounded-3xl p-6 professional-shadow">
+                <h3 className="text-lg font-bold text-wellness-charcoal mb-4 text-center">What Our Patients Say</h3>
+                <div className="space-y-4">
+                  {testimonials.map((testimonial, index) => (
+                    <div key={index} className="flex items-start space-x-3 p-3 rounded-xl bg-gray-50">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center mb-1">
+                          <span className="font-medium text-sm text-wellness-charcoal">{testimonial.name}</span>
+                          <div className="flex ml-2">
+                            {[...Array(testimonial.rating)].map((_, i) => (
+                              <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 leading-relaxed">{testimonial.text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -360,9 +405,6 @@ const Index = () => {
         className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-wellness-teal via-teal-600 to-wellness-teal animate-on-scroll relative overflow-hidden"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-wellness-teal/90 to-teal-600/90"></div>
-        <div className="absolute inset-0 opacity-20" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }}></div>
         <div className="section-container relative text-center">
           <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6">
             Ready to Transform Your Healthcare Experience?
