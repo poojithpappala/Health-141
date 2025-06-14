@@ -21,7 +21,7 @@ interface SpecialistCardProps {
 
 const SpecialistCard = ({ specialist, className = '', style }: SpecialistCardProps) => {
   return (
-    <Card className={`group premium-shadow hover:premium-hover transition-all duration-500 bg-gradient-to-br from-white to-slate-50/30 border-0 overflow-hidden rounded-2xl ${className}`} style={style}>
+    <Card className={`group premium-shadow hover:premium-hover transition-all duration-500 bg-gradient-to-br from-white via-white to-[hsl(var(--premium-accent-light))]/40 border-0 overflow-hidden rounded-2xl ${className}`} style={style}>
       <CardContent className="p-0">
         <div className="relative">
           <div className="absolute top-4 right-4 z-10">
@@ -49,11 +49,11 @@ const SpecialistCard = ({ specialist, className = '', style }: SpecialistCardPro
               Dr. {specialist.name}
             </h3>
             
-            <Badge variant="secondary" className="mb-4 text-[hsl(var(--primary))] bg-[hsl(var(--primary))]/10 border-[hsl(var(--primary))]/20"> {/* Increased mb */}
+            <Badge variant="secondary" className="mb-4 text-[hsl(var(--primary))] bg-[hsl(var(--primary))]/10 border-[hsl(var(--primary))]/20">
               {specialist.specialty}
             </Badge>
             
-            <p className="text-slate-700 leading-relaxed mb-5 text-sm"> {/* Changed to slate-700 from slate-800 for card descriptions, increased mb */}
+            <p className="text-slate-700 leading-relaxed mb-5 text-sm">
               {specialist.bio}
             </p>
             
@@ -79,4 +79,3 @@ const SpecialistCard = ({ specialist, className = '', style }: SpecialistCardPro
 };
 
 export default SpecialistCard;
-

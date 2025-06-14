@@ -1,4 +1,3 @@
-
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -124,27 +123,27 @@ const Index = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="hero-section hero-pattern relative overflow-hidden animate-section-fade">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50/70 via-white/30 to-[hsl(var(--premium-accent-light))]/30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-[hsl(var(--premium-accent-light))]/20 to-white/90 backdrop-blur-sm" />
         <div className="section-container relative z-10">
           <div className="max-w-5xl mx-auto text-center">
-            <Badge className="bg-wellness-gold/10 text-wellness-gold border-wellness-gold/30 mb-10 px-8 py-3 rounded-full text-lg font-semibold hover:bg-wellness-gold/20 transition-colors"> {/* Increased mb */}
+            <Badge className="bg-wellness-gold/10 text-wellness-gold border-wellness-gold/30 mb-10 px-8 py-3 rounded-full text-lg font-semibold hover:bg-wellness-gold/20 transition-colors">
               <Sparkles className="w-5 h-5 mr-2 text-wellness-gold" />
               Your Health, Elevated
             </Badge>
             
-            <h1 className="heading-primary mb-10 leading-tight"> {/* Increased mb */}
+            <h1 className="heading-primary mb-10 leading-tight">
               Exceptional Healthcare 
               <span className="block bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--premium-accent))] bg-clip-text text-transparent">
                 Redefined For You
               </span>
             </h1>
             
-            <p className="text-xl text-wellness-charcoal mb-14 max-w-4xl mx-auto leading-relaxed"> {/* Changed text-slate-700 to text-wellness-charcoal, increased mb */}
+            <p className="text-xl text-wellness-charcoal mb-14 max-w-4xl mx-auto leading-relaxed">
               Experience the pinnacle of personalized healthcare. Our world-class specialists and cutting-edge platform 
               are dedicated to your wellbeing.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20"> {/* Increased mb */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
               <Button 
                 asChild 
                 size="lg" 
@@ -169,14 +168,14 @@ const Index = () => {
             </div>
 
             {/* Trust Indicators */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12"> {/* Increased gap-y */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center animate-fade-in" style={{animationDelay: `${index * 0.15}s`}}>
-                  <div className={`w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center brand-gradient shadow-lg group transition-all duration-300 hover:scale-110`}> {/* Increased mb */}
+                  <div className={`w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center brand-gradient shadow-lg group transition-all duration-300 hover:scale-110`}>
                     <stat.icon className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-4xl font-bold text-wellness-charcoal mb-2">{stat.number}</div>
-                  <div className="text-slate-700 font-medium">{stat.label}</div> {/* Kept slate-700 for secondary label text for differentiation */}
+                  <div className="text-slate-700 font-medium">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -185,25 +184,25 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="content-section bg-gradient-to-b from-white to-[hsl(var(--premium-accent-light))]/40 animate-section-fade">
+      <section className="content-section bg-gradient-to-b from-slate-50 to-[hsl(var(--premium-accent-light))]/20 animate-section-fade">
         <div className="section-container">
-          <div className="text-center mb-24"> {/* Increased mb */}
-            <h2 className="heading-secondary mb-8"> {/* Increased mb */}
+          <div className="text-center mb-24">
+            <h2 className="heading-secondary mb-8">
               The WellnessPortal Difference
             </h2>
-            <p className="text-xl text-wellness-charcoal max-w-3xl mx-auto leading-relaxed"> {/* Changed text-slate-700 to text-wellness-charcoal */}
+            <p className="text-xl text-wellness-charcoal max-w-3xl mx-auto leading-relaxed">
               Pioneering healthcare through innovation, expertise, and unwavering dedication to your health.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10"> {/* Increased gap */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
             {features.map((feature, index) => (
               <div key={index} className="card-premium p-8 text-center group animate-fade-in" style={{animationDelay: `${0.2 + index * 0.15}s`}}>
-                <div className="w-20 h-20 mx-auto mb-8 brand-gradient rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg"> {/* Increased mb */}
+                <div className="w-20 h-20 mx-auto mb-8 brand-gradient rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
                   <feature.icon className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-wellness-charcoal mb-5 group-hover:text-[hsl(var(--primary))] transition-colors">{feature.title}</h3> {/* Increased mb */}
-                <p className="text-slate-700 leading-relaxed">{feature.description}</p> {/* Kept slate-700 for card description text for differentiation */}
+                <h3 className="text-2xl font-bold text-wellness-charcoal mb-5 group-hover:text-[hsl(var(--primary))] transition-colors">{feature.title}</h3>
+                <p className="text-slate-700 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -211,26 +210,26 @@ const Index = () => {
       </section>
       <hr className="premium-divider" />
       {/* Services Section */}
-      <section className="content-section animate-section-fade">
+      <section className="content-section animate-section-fade bg-white">
         <div className="section-container">
-          <div className="text-center mb-24"> {/* Increased mb */}
-            <h2 className="heading-secondary mb-8"> {/* Increased mb */}
+          <div className="text-center mb-24">
+            <h2 className="heading-secondary mb-8">
               Our Premier Medical Specialties
             </h2>
-            <p className="text-xl text-wellness-charcoal max-w-3xl mx-auto leading-relaxed"> {/* Changed text-slate-700 to text-wellness-charcoal */}
+            <p className="text-xl text-wellness-charcoal max-w-3xl mx-auto leading-relaxed">
               Access a comprehensive suite of services led by distinguished specialists in their fields.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-20"> {/* Increased gap and mb */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-20">
             {services.map((service, index) => (
               <div key={index} className="card-premium p-8 group hover:scale-105 transition-all duration-300 animate-fade-in" style={{animationDelay: `${0.4 + index * 0.15}s`}}>
-                <div className={`w-20 h-20 bg-gradient-to-br ${service.color} rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300 shadow-md`}> {/* Increased mb */}
+                <div className={`w-20 h-20 bg-gradient-to-br ${service.color} rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300 shadow-md`}>
                   <service.icon className="w-10 h-10 text-white" />
                 </div>
                 
-                <h3 className="text-2xl font-bold text-wellness-charcoal mb-4 group-hover:text-[hsl(var(--primary))] transition-colors">{service.title}</h3> {/* Increased mb */}
-                <p className="text-slate-700 leading-relaxed mb-6">{service.description}</p> {/* Kept slate-700, Increased mb */}
+                <h3 className="text-2xl font-bold text-wellness-charcoal mb-4 group-hover:text-[hsl(var(--primary))] transition-colors">{service.title}</h3>
+                <p className="text-slate-700 leading-relaxed mb-6">{service.description}</p>
                 
                 <div className="flex items-center justify-between">
                   <span className="text-[hsl(var(--primary))] font-semibold">{service.specialists}</span>
@@ -244,7 +243,7 @@ const Index = () => {
             <Button 
               asChild 
               size="lg" 
-              className="brand-gradient text-primary-foreground font-semibold btn-hover premium-shadow text-lg px-10 py-3.5" /* Adjusted py */
+              className="brand-gradient text-primary-foreground font-semibold btn-hover premium-shadow text-lg px-10 py-3.5"
             >
               <Link to="/services">
                 View All Services
@@ -256,18 +255,18 @@ const Index = () => {
       </section>
       <hr className="premium-divider" />
       {/* Specialists Section */}
-      <section className="content-section bg-gradient-to-b from-[hsl(var(--premium-accent-light))]/40 to-white animate-section-fade">
+      <section className="content-section bg-gradient-to-b from-[hsl(var(--premium-accent-light))]/20 to-slate-50 animate-section-fade">
         <div className="section-container">
-          <div className="text-center mb-24"> {/* Increased mb */}
-            <h2 className="heading-secondary mb-8"> {/* Increased mb */}
+          <div className="text-center mb-24">
+            <h2 className="heading-secondary mb-8">
               Meet Our Expert Specialists
             </h2>
-            <p className="text-xl text-wellness-charcoal max-w-3xl mx-auto leading-relaxed"> {/* Changed text-slate-700 to text-wellness-charcoal */}
+            <p className="text-xl text-wellness-charcoal max-w-3xl mx-auto leading-relaxed">
               Entrust your care to board-certified physicians celebrated for their expertise and compassionate approach.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 mb-20"> {/* Increased gap and mb */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 mb-20">
             {specialists.map((specialist, index) => (
               <SpecialistCard key={index} specialist={specialist} className="animate-fade-in" style={{animationDelay: `${0.6 + index * 0.15}s`}} />
             ))}
@@ -277,7 +276,7 @@ const Index = () => {
             <Button 
               asChild 
               size="lg" 
-              className="font-semibold btn-hover premium-shadow text-lg border-[hsl(var(--primary))] text-[hsl(var(--primary))] hover:text-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))]/10 px-10 py-3.5" /* Adjusted py */
+              className="font-semibold btn-hover premium-shadow text-lg border-[hsl(var(--primary))] text-[hsl(var(--primary))] hover:text-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))]/10 px-10 py-3.5"
               variant="outline"
             >
               <Link to="/doctors">
@@ -290,13 +289,13 @@ const Index = () => {
       </section>
       <hr className="premium-divider" />
       {/* Testimonials Section */}
-      <section className="content-section animate-section-fade">
+      <section className="content-section animate-section-fade bg-white">
         <div className="section-container">
-          <div className="text-center mb-24"> {/* Increased mb */}
-            <h2 className="heading-secondary mb-8"> {/* Increased mb */}
+          <div className="text-center mb-24">
+            <h2 className="heading-secondary mb-8">
               Patient Success Stories
             </h2>
-            <p className="text-xl text-wellness-charcoal max-w-3xl mx-auto leading-relaxed"> {/* Changed text-slate-700 to text-wellness-charcoal */}
+            <p className="text-xl text-wellness-charcoal max-w-3xl mx-auto leading-relaxed">
               Discover how we've empowered thousands to achieve optimal health and vitality.
             </p>
           </div>
@@ -305,13 +304,13 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="content-section brand-gradient relative overflow-hidden animate-section-fade py-24 lg:py-32"> {/* Increased py */}
+      <section className="content-section brand-gradient relative overflow-hidden animate-section-fade py-24 lg:py-32">
         <div className="absolute inset-0 hero-pattern opacity-10" />
         <div className="section-container relative z-10 text-center">
-          <h2 className="text-5xl lg:text-6xl font-bold text-white mb-10 leading-tight"> {/* Increased mb */}
+          <h2 className="text-5xl lg:text-6xl font-bold text-white mb-10 leading-tight">
             Ready to Transform Your Health?
           </h2>
-          <p className="text-xl text-teal-50 mb-14 max-w-3xl mx-auto leading-relaxed"> {/* Increased mb */}
+          <p className="text-xl text-teal-50 mb-14 max-w-3xl mx-auto leading-relaxed">
             Join thousands of patients who have experienced world-class healthcare. 
             Your journey to better health starts with a single click.
           </p>
@@ -345,4 +344,3 @@ const Index = () => {
 };
 
 export default Index;
-

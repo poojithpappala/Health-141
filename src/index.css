@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -56,38 +57,38 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-white via-[hsl(var(--premium-accent-light))] to-teal-50/5 text-foreground font-sans animate-page-fade-in; /* Updated gradient */
-    line-height: 1.75; /* Increased default line height for body */
+    @apply bg-slate-50 text-foreground font-sans animate-page-fade-in; /* Cleaner base background */
+    line-height: 1.75; 
     letter-spacing: -0.01em;
-    font-size: 17px; /* Base font size */
-    color: hsl(var(--foreground)); /* Ensure body text defaults to high contrast foreground */
+    font-size: 17px; 
+    color: hsl(var(--foreground));
   }
 
   h1, h2, h3, h4, h5, h6 {
-    line-height: 1.2; /* Adjusted line-height for headings */
+    line-height: 1.2; 
     font-family: 'Inter', 'system-ui', 'sans-serif';
-    @apply text-wellness-charcoal font-extrabold mb-4; /* Added default bottom margin */
+    @apply text-wellness-charcoal font-extrabold mb-4; 
     letter-spacing: -0.015em;
   }
 
   h1 {
-    @apply text-5xl lg:text-6xl tracking-tight mb-6; /* Increased bottom margin */
+    @apply text-5xl lg:text-6xl tracking-tight mb-6; 
   }
 
   h2 {
-    @apply text-4xl lg:text-5xl tracking-tight mb-5; /* Increased bottom margin */
+    @apply text-4xl lg:text-5xl tracking-tight mb-5; 
   }
 
   h3 {
-    @apply text-2xl lg:text-3xl mb-3; /* Consistent bottom margin */
+    @apply text-2xl lg:text-3xl mb-3; 
   }
 
   p {
-    @apply text-slate-800 leading-relaxed; /* Darker default paragraph color for better readability */
+    @apply text-slate-700 leading-relaxed; /* Standardized paragraph color for readability */
   }
 }
 
-/* Premium divider between sections */
+/* ... keep existing code (premium-divider, glass-premium, premium-shadow, premium-hover, btn-hover, animations, card-premium, section-container, etc.) */
 @layer components {
   .premium-divider {
     @apply w-full border-0 h-px mt-20 mb-16; /* Increased spacing around divider */
@@ -193,3 +194,4 @@
     60% { transform: translateY(-18px) rotate(2deg); } 
   }
 }
+
