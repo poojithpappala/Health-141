@@ -1,4 +1,3 @@
-
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -92,25 +91,31 @@ const Index = () => {
       name: 'Dr. Sarah Chen',
       specialty: 'Cardiology',
       experience: '15+ years',
+      bio: 'Leading cardiovascular specialist with expertise in interventional cardiology and heart failure management. Board-certified with extensive experience in complex cardiac procedures.',
       image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face',
       rating: 4.9,
-      patients: '2,500+'
+      patients: '2,500+',
+      verified: true
     },
     {
       name: 'Dr. Michael Rodriguez',
       specialty: 'Neurology',
       experience: '12+ years',
+      bio: 'Renowned neurologist specializing in stroke care, epilepsy treatment, and neurodegenerative diseases. Published researcher with 50+ peer-reviewed publications.',
       image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face',
       rating: 4.8,
-      patients: '1,800+'
+      patients: '1,800+',
+      verified: true
     },
     {
       name: 'Dr. Emily Watson',
       specialty: 'Pediatrics',
       experience: '10+ years',
+      bio: 'Compassionate pediatrician dedicated to comprehensive child healthcare. Specializes in developmental pediatrics and adolescent medicine with a focus on preventive care.',
       image: 'https://images.unsplash.com/photo-1594824475574-87b2b1b75516?w=400&h=400&fit=crop&crop=face',
       rating: 4.9,
-      patients: '3,200+'
+      patients: '3,200+',
+      verified: true
     }
   ];
 
