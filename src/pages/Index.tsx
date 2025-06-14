@@ -3,12 +3,13 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Shield, Heart, Users, Clock, ArrowRight, CheckCircle, Star, Award, Calendar, Phone } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Shield, Heart, Users, Clock, ArrowRight, CheckCircle, Star, Award, Calendar, Phone, MapPin, Stethoscope } from 'lucide-react';
 
 const Index = () => {
   const heroRef = useRef<HTMLDivElement>(null);
-  const specialistsRef = useRef<HTMLDivElement>(null);
   const featuresRef = useRef<HTMLDivElement>(null);
+  const specialistsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -16,14 +17,14 @@ const Index = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            entry.target.classList.add('animate-fade-in');
           }
         });
       },
       { threshold: 0.1 }
     );
 
-    const elements = [heroRef.current, specialistsRef.current, featuresRef.current, ctaRef.current];
+    const elements = [heroRef.current, featuresRef.current, specialistsRef.current, ctaRef.current];
     elements.forEach((el) => el && observer.observe(el));
 
     return () => observer.disconnect();
@@ -44,7 +45,7 @@ const Index = () => {
     {
       name: 'Dr. Rajesh Patel',
       specialty: 'Dermatologist',
-      bio: 'Board-certified dermatologist specializing in advanced skin treatments, cosmetic procedures, and skin cancer detection.',
+      bio: 'Board-certified dermatologist specializing in advanced skin treatments and cosmetic procedures.',
       image: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop&face=true',
       rating: 4.8,
       experience: '12+ years',
@@ -55,7 +56,7 @@ const Index = () => {
     {
       name: 'Dr. Sarah Ahmed',
       specialty: 'Neurologist',
-      bio: 'Expert neurologist with subspecialty training in movement disorders, epilepsy, and neurological rehabilitation.',
+      bio: 'Expert neurologist with subspecialty training in movement disorders and epilepsy treatment.',
       image: 'https://images.unsplash.com/photo-1594824388853-e0e3b8e9c9a1?w=400&h=400&fit=crop&face=true',
       rating: 4.9,
       experience: '18+ years',
@@ -66,7 +67,7 @@ const Index = () => {
     {
       name: 'Dr. Michael Chen',
       specialty: 'Orthopedist',
-      bio: 'Orthopedic surgeon focused on sports medicine, joint replacement, and arthroscopic procedures for optimal recovery.',
+      bio: 'Orthopedic surgeon focused on sports medicine and joint replacement procedures.',
       image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&face=true',
       rating: 4.7,
       experience: '14+ years',
@@ -130,12 +131,9 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section 
-        ref={heroRef}
-        className="relative py-24 px-4 sm:px-6 lg:px-8 animate-on-scroll overflow-hidden min-h-[90vh] flex items-center"
-      >
+      <section ref={heroRef} className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-[90vh] flex items-center">
         <div className="absolute inset-0 bg-gradient-to-br from-teal-50/50 via-white to-blue-50/30"></div>
-        <div className="section-container relative w-full">
+        <div className="max-w-7xl mx-auto relative w-full">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1 space-y-8">
               <div className="space-y-6">
@@ -169,22 +167,13 @@ const Index = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  asChild 
-                  size="lg" 
-                  className="bg-wellness-teal hover:bg-wellness-teal/90 btn-hover text-lg px-8 py-6 rounded-full shadow-xl"
-                >
+                <Button asChild size="lg" className="bg-wellness-teal hover:bg-wellness-teal/90 text-lg px-8 py-6 rounded-full shadow-xl">
                   <Link to="/patient-intake">
                     Get Started Today
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                <Button 
-                  asChild
-                  variant="outline" 
-                  size="lg" 
-                  className="border-2 border-wellness-teal text-wellness-teal hover:bg-wellness-teal hover:text-white btn-hover text-lg px-8 py-6 rounded-full"
-                >
+                <Button asChild variant="outline" size="lg" className="border-2 border-wellness-teal text-wellness-teal hover:bg-wellness-teal hover:text-white text-lg px-8 py-6 rounded-full">
                   <Link to="/about">
                     Learn More About Us
                   </Link>
@@ -207,10 +196,10 @@ const Index = () => {
                 <img
                   src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=500&fit=crop"
                   alt="Modern medical consultation room"
-                  className="w-full h-96 lg:h-[500px] object-cover rounded-3xl professional-shadow"
+                  className="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-2xl"
                   loading="lazy"
                 />
-                <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 professional-shadow">
+                <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-2xl">
                   <div className="flex items-center space-x-4">
                     <div className="w-14 h-14 bg-gradient-to-br from-wellness-teal to-teal-400 rounded-full flex items-center justify-center">
                       <Heart className="w-7 h-7 text-white" />
@@ -221,7 +210,7 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-                <div className="absolute -top-6 -right-6 bg-gradient-to-br from-teal-500 to-wellness-teal rounded-2xl p-4 text-white professional-shadow">
+                <div className="absolute -top-6 -right-6 bg-gradient-to-br from-teal-500 to-wellness-teal rounded-2xl p-4 text-white shadow-2xl">
                   <div className="text-center">
                     <div className="text-2xl font-bold">24/7</div>
                     <div className="text-xs">Available</div>
@@ -229,43 +218,42 @@ const Index = () => {
                 </div>
               </div>
               
-              {/* Testimonials Carousel */}
-              <div className="bg-white rounded-3xl p-6 professional-shadow">
-                <h3 className="text-lg font-bold text-wellness-charcoal mb-4 text-center">What Our Patients Say</h3>
-                <div className="space-y-4">
-                  {testimonials.map((testimonial, index) => (
-                    <div key={index} className="flex items-start space-x-3 p-3 rounded-xl bg-gray-50">
-                      <img
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                      <div className="flex-1">
-                        <div className="flex items-center mb-1">
-                          <span className="font-medium text-sm text-wellness-charcoal">{testimonial.name}</span>
-                          <div className="flex ml-2">
-                            {[...Array(testimonial.rating)].map((_, i) => (
-                              <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
-                            ))}
+              {/* Testimonials */}
+              <Card className="bg-white rounded-3xl shadow-2xl">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-bold text-wellness-charcoal mb-4 text-center">What Our Patients Say</h3>
+                  <div className="space-y-4">
+                    {testimonials.map((testimonial, index) => (
+                      <div key={index} className="flex items-start space-x-3 p-3 rounded-xl bg-gray-50">
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                        <div className="flex-1">
+                          <div className="flex items-center mb-1">
+                            <span className="font-medium text-sm text-wellness-charcoal">{testimonial.name}</span>
+                            <div className="flex ml-2">
+                              {Array.from({ length: testimonial.rating }).map((_, i) => (
+                                <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
+                              ))}
+                            </div>
                           </div>
+                          <p className="text-xs text-gray-600 leading-relaxed">{testimonial.text}</p>
                         </div>
-                        <p className="text-xs text-gray-600 leading-relaxed">{testimonial.text}</p>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section 
-        ref={featuresRef}
-        className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-50 to-teal-50/30 animate-on-scroll"
-      >
-        <div className="section-container">
+      <section ref={featuresRef} className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-50 to-teal-50/30">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <Badge className="bg-teal-100 text-wellness-teal mb-4 px-4 py-2 rounded-full">
               Why Choose Us
@@ -279,32 +267,27 @@ const Index = () => {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <div 
-                key={index}
-                className="text-center group animate-on-scroll bg-white rounded-3xl p-8 professional-shadow hover:premium-glow transition-all duration-500"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="w-20 h-20 bg-gradient-to-br from-wellness-teal to-teal-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <feature.icon className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-wellness-charcoal mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
+              <Card key={index} className="text-center group bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 border-0">
+                <CardContent className="p-8">
+                  <div className="w-20 h-20 bg-gradient-to-br from-wellness-teal to-teal-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <feature.icon className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-wellness-charcoal mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
       {/* Specialists Section */}
-      <section 
-        ref={specialistsRef}
-        className="py-24 px-4 sm:px-6 lg:px-8 animate-on-scroll bg-white"
-      >
-        <div className="section-container">
+      <section ref={specialistsRef} className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <Badge className="bg-teal-100 text-wellness-teal mb-4 px-4 py-2 rounded-full">
               Meet Our Experts
@@ -318,78 +301,72 @@ const Index = () => {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {specialists.map((specialist, index) => (
-              <div
-                key={index}
-                className="group animate-on-scroll bg-gradient-to-br from-white to-slate-50/50 rounded-3xl p-8 professional-shadow hover:premium-glow transition-all duration-500 border-0 overflow-hidden"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="text-center">
-                  <div className="relative inline-block mb-6">
-                    <img
-                      src={specialist.image}
-                      alt={`${specialist.name} portrait`}
-                      className="w-32 h-32 rounded-full mx-auto object-cover ring-4 ring-white shadow-xl group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                    <div className="absolute -bottom-2 -right-2 bg-wellness-teal rounded-full p-2 shadow-lg">
-                      <Star className="w-4 h-4 text-white fill-current" />
-                    </div>
-                    {specialist.verified && (
-                      <div className="absolute -top-2 -left-2">
-                        <Badge className="bg-wellness-teal text-white shadow-lg">
-                          <Award className="w-3 h-3 mr-1" />
-                          Verified
-                        </Badge>
+              <Card key={index} className="group bg-gradient-to-br from-white to-slate-50/50 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 border-0 overflow-hidden">
+                <CardContent className="p-8">
+                  <div className="text-center">
+                    <div className="relative inline-block mb-6">
+                      <img
+                        src={specialist.image}
+                        alt={`${specialist.name} portrait`}
+                        className="w-32 h-32 rounded-full mx-auto object-cover ring-4 ring-white shadow-xl group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                      <div className="absolute -bottom-2 -right-2 bg-wellness-teal rounded-full p-2 shadow-lg">
+                        <Star className="w-4 h-4 text-white fill-current" />
                       </div>
-                    )}
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-wellness-charcoal mb-2 group-hover:text-wellness-teal transition-colors">
-                    {specialist.name}
-                  </h3>
-                  
-                  <Badge variant="secondary" className="mb-3 text-wellness-teal bg-teal-50 border-teal-200">
-                    {specialist.specialty}
-                  </Badge>
-                  
-                  <p className="text-gray-600 leading-relaxed mb-4 text-sm">
-                    {specialist.bio}
-                  </p>
-                  
-                  <div className="space-y-2 text-sm text-gray-500 mb-4">
-                    <div className="flex items-center justify-center">
-                      <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
-                      <span className="font-medium">{specialist.rating}</span>
-                      <span className="mx-2">•</span>
-                      <Clock className="w-4 h-4 mr-1" />
-                      <span>{specialist.experience}</span>
+                      {specialist.verified && (
+                        <div className="absolute -top-2 -left-2">
+                          <Badge className="bg-wellness-teal text-white shadow-lg">
+                            <Award className="w-3 h-3 mr-1" />
+                            Verified
+                          </Badge>
+                        </div>
+                      )}
                     </div>
-                    <div className="text-center">
-                      <p className="font-medium">{specialist.education}</p>
-                      <p>{specialist.location}</p>
+                    
+                    <h3 className="text-2xl font-bold text-wellness-charcoal mb-2 group-hover:text-wellness-teal transition-colors">
+                      {specialist.name}
+                    </h3>
+                    
+                    <Badge variant="secondary" className="mb-3 text-wellness-teal bg-teal-50 border-teal-200">
+                      {specialist.specialty}
+                    </Badge>
+                    
+                    <p className="text-gray-600 leading-relaxed mb-4 text-sm">
+                      {specialist.bio}
+                    </p>
+                    
+                    <div className="space-y-2 text-sm text-gray-500 mb-4">
+                      <div className="flex items-center justify-center">
+                        <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
+                        <span className="font-medium">{specialist.rating}</span>
+                        <span className="mx-2">•</span>
+                        <Clock className="w-4 h-4 mr-1" />
+                        <span>{specialist.experience}</span>
+                      </div>
+                      <div className="text-center">
+                        <p className="font-medium">{specialist.education}</p>
+                        <div className="flex items-center justify-center mt-1">
+                          <MapPin className="w-3 h-3 mr-1" />
+                          <span>{specialist.location}</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  <Button 
-                    asChild
-                    className="w-full bg-wellness-teal hover:bg-wellness-teal/90 text-white rounded-full"
-                  >
-                    <Link to="/patient-intake">
-                      Book Appointment
-                    </Link>
-                  </Button>
-                </div>
-              </div>
+                    <Button asChild className="w-full bg-wellness-teal hover:bg-wellness-teal/90 text-white rounded-full">
+                      <Link to="/patient-intake">
+                        <Stethoscope className="w-4 h-4 mr-2" />
+                        Book Appointment
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
           
           <div className="text-center mt-12">
-            <Button 
-              asChild
-              variant="outline" 
-              size="lg" 
-              className="border-2 border-wellness-teal text-wellness-teal hover:bg-wellness-teal hover:text-white text-lg px-8 py-4 rounded-full"
-            >
+            <Button asChild variant="outline" size="lg" className="border-2 border-wellness-teal text-wellness-teal hover:bg-wellness-teal hover:text-white text-lg px-8 py-4 rounded-full">
               <Link to="/doctors">
                 View All Specialists
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -400,12 +377,9 @@ const Index = () => {
       </section>
 
       {/* CTA Banner */}
-      <section 
-        ref={ctaRef}
-        className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-wellness-teal via-teal-600 to-wellness-teal animate-on-scroll relative overflow-hidden"
-      >
+      <section ref={ctaRef} className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-wellness-teal via-teal-600 to-wellness-teal relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-wellness-teal/90 to-teal-600/90"></div>
-        <div className="section-container relative text-center">
+        <div className="max-w-7xl mx-auto relative text-center">
           <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6">
             Ready to Transform Your Healthcare Experience?
           </h2>
@@ -413,11 +387,7 @@ const Index = () => {
             Join thousands of patients who trust us with their health. Start your journey to better wellness today.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Button 
-              asChild 
-              size="lg" 
-              className="bg-white text-wellness-teal hover:bg-gray-100 btn-hover text-xl px-10 py-6 rounded-full shadow-2xl"
-            >
+            <Button asChild size="lg" className="bg-white text-wellness-teal hover:bg-gray-100 text-xl px-10 py-6 rounded-full shadow-2xl">
               <Link to="/patient-intake">
                 Book Your Appointment
                 <ArrowRight className="ml-2 w-6 h-6" />
