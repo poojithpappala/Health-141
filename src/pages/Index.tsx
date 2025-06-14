@@ -1,12 +1,9 @@
-
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-// Card, CardContent, CardHeader, CardTitle are not directly used here now for simple feature/service cards
-// They are used by SpecialistCard and potentially TestimonialCarousel internally
 import { Link } from 'react-router-dom';
 import { 
-  HeartPulse, // Replaced Heart for consistency with logo
-  ShieldCheck, // More direct for HIPAA
+  HeartPulse, 
+  ShieldCheck, 
   Clock, 
   Users, 
   Stethoscope, 
@@ -14,18 +11,17 @@ import {
   Bone, 
   Eye,
   Star,
-  // CheckCircle, // Not used directly
   ArrowRight,
-  PhoneCall, // More direct for contact
-  CalendarDays, // More direct for calendar
+  PhoneCall, 
+  CalendarDays, 
   Award,
   Sparkles,
-  Video, // Keep Video for Telemedicine
-  MessageCircleQuestion // More direct for Explore Services
+  Video, 
+  MessageCircleQuestion
 } from 'lucide-react';
 import TestimonialCarousel from '@/components/TestimonialCarousel';
 import SpecialistCard from '@/components/SpecialistCard';
-import { cn } from '@/lib/utils'; // For conditional classes
+import { cn } from '@/lib/utils';
 
 const Index = () => {
   const features = [
@@ -91,7 +87,8 @@ const Index = () => {
 
   const specialists = [
     {
-      name: 'Sarah Chen', // Removed Dr. prefix, implied by context
+      id: 'sarah-chen', // Added id
+      name: 'Sarah Chen',
       specialty: 'Cardiology',
       experience: '15+ years',
       bio: 'Leading cardiovascular specialist focusing on interventional cardiology and heart failure. Board-certified, extensive experience.',
@@ -100,6 +97,7 @@ const Index = () => {
       verified: true
     },
     {
+      id: 'michael-rodriguez', // Added id
       name: 'Michael Rodriguez',
       specialty: 'Neurology',
       experience: '12+ years',
@@ -109,6 +107,7 @@ const Index = () => {
       verified: true
     },
     {
+      id: 'emily-watson', // Added id
       name: 'Emily Watson',
       specialty: 'Pediatrics',
       experience: '10+ years',
@@ -149,7 +148,7 @@ const Index = () => {
               <Button 
                 asChild 
                 size="lg" 
-                className="px-8 py-3" // Standard Shadcn button with new premium styles
+                className="px-8 py-3"
               >
                 <Link to="/patient-intake">
                   <CalendarDays className="mr-2.5 w-5 h-5" /> 
@@ -280,7 +279,7 @@ const Index = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 mb-16"> {/* Adjusted gap */}
             {specialists.map((specialist, index) => (
-              <SpecialistCard key={index} specialist={specialist} className="animate-fade-in" style={{animationDelay: `${0.6 + index * 0.1}s`}} />
+              <SpecialistCard key={specialist.id} specialist={specialist} className="animate-fade-in" style={{animationDelay: `${0.6 + index * 0.1}s`}} />
             ))}
           </div>
 
@@ -355,4 +354,3 @@ const Index = () => {
 };
 
 export default Index;
-
