@@ -11,7 +11,7 @@ const CtaSection = () => {
         <h2 className="text-4xl lg:text-5xl font-bold text-primary-foreground mb-6 leading-tight">
           Ready to Transform Your Health?
         </h2>
-        <p className="text-lg text-primary-foreground/80 mb-10 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-lg text-primary-foreground mb-10 max-w-3xl mx-auto leading-relaxed"> {/* Changed text-primary-foreground/80 to text-primary-foreground */}
           Join thousands who have experienced world-class healthcare. Your journey to better health starts here.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

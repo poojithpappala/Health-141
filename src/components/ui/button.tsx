@@ -14,10 +14,10 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-soft",
         outline:
-          "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground shadow-sm", // Softer shadow for outline
+          "border border-input bg-transparent text-accent-foreground hover:bg-accent hover:text-accent-foreground shadow-sm", // Added text-accent-foreground for default state
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-soft",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "text-accent-foreground hover:bg-accent hover:text-accent-foreground", // Added text-accent-foreground for default state
         link: "text-primary underline-offset-4 hover:underline focus-visible:ring-0 focus-visible:ring-offset-0", // No ring for link
         premium: "accent-gradient-bg text-premium-accent-foreground hover:opacity-95 shadow-md", // New premium variant
       },
