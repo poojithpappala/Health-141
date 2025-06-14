@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
+import { CheckCircle } from 'lucide-react';
 
 interface FormData {
   fullName: string;
@@ -55,7 +56,6 @@ const PatientIntake = () => {
   const handleInputChange = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -69,7 +69,6 @@ const PatientIntake = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate all fields
     const newErrors: FormErrors = {};
     Object.entries(formData).forEach(([key, value]) => {
       const error = validateField(key, value);
@@ -88,20 +87,20 @@ const PatientIntake = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-28 pb-12 px-4 sm:px-6 lg:px-8">
-      {/* Onboarding Modal */}
+    <div className="min-h-screen pt-28 pb-12 px-4 sm:px-6 lg:px-8 animate-page-fade-in">
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md glass-premium">
           <DialogHeader>
-            <DialogTitle>Welcome to Your Consultation</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-2xl text-wellness-charcoal">Welcome to Your Consultation</DialogTitle>
+            <DialogDescription className="text-slate-600">
               Please tell us about yourself so we can match you with the right specialist.
             </DialogDescription>
           </DialogHeader>
-          <div className="flex justify-end">
+          <div className="flex justify-end mt-4">
             <Button 
               onClick={() => setShowModal(false)}
               aria-label="Close onboarding"
+              className="bg-wellness-teal hover:bg-teal-700 text-white btn-hover"
             >
               Get Started
             </Button>
@@ -111,98 +110,98 @@ const PatientIntake = () => {
 
       <div className="max-w-2xl mx-auto">
         {!isSubmitted ? (
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-2xl text-center text-wellness-charcoal">
+          <Card className="card-premium animate-section-fade">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-3xl text-center text-wellness-charcoal">
                 Patient Information
               </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <Label htmlFor="fullName">Full Name *</Label>
+                  <Label htmlFor="fullName" className="text-slate-700 font-medium">Full Name *</Label>
                   <Input
                     id="fullName"
                     type="text"
                     value={formData.fullName}
                     onChange={(e) => handleInputChange('fullName', e.target.value)}
                     onBlur={(e) => handleBlur('fullName', e.target.value)}
-                    className={errors.fullName ? 'border-red-500' : ''}
+                    className={`mt-1 ${errors.fullName ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
                     required
                   />
                   {errors.fullName && (
-                    <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
+                    <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>
                   )}
                 </div>
 
                 <div>
-                  <Label htmlFor="age">Age *</Label>
+                  <Label htmlFor="age" className="text-slate-700 font-medium">Age *</Label>
                   <Input
                     id="age"
                     type="number"
                     value={formData.age}
                     onChange={(e) => handleInputChange('age', e.target.value)}
                     onBlur={(e) => handleBlur('age', e.target.value)}
-                    className={errors.age ? 'border-red-500' : ''}
+                    className={`mt-1 ${errors.age ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
                     required
                   />
                   {errors.age && (
-                    <p className="text-red-500 text-sm mt-1">{errors.age}</p>
+                    <p className="text-red-500 text-xs mt-1">{errors.age}</p>
                   )}
                 </div>
 
                 <div>
-                  <Label htmlFor="email">Email *</Label>
+                  <Label htmlFor="email" className="text-slate-700 font-medium">Email *</Label>
                   <Input
                     id="email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
                     onBlur={(e) => handleBlur('email', e.target.value)}
-                    className={errors.email ? 'border-red-500' : ''}
+                    className={`mt-1 ${errors.email ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
                     required
                   />
                   {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
                   )}
                 </div>
 
                 <div>
-                  <Label htmlFor="phone">Phone *</Label>
+                  <Label htmlFor="phone" className="text-slate-700 font-medium">Phone *</Label>
                   <Input
                     id="phone"
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
                     onBlur={(e) => handleBlur('phone', e.target.value)}
-                    className={errors.phone ? 'border-red-500' : ''}
+                    className={`mt-1 ${errors.phone ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
                     required
                   />
                   {errors.phone && (
-                    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                    <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
                   )}
                 </div>
 
                 <div>
-                  <Label htmlFor="concern">Describe Your Main Concern *</Label>
+                  <Label htmlFor="concern" className="text-slate-700 font-medium">Describe Your Main Concern *</Label>
                   <Textarea
                     id="concern"
                     value={formData.concern}
                     onChange={(e) => handleInputChange('concern', e.target.value)}
                     onBlur={(e) => handleBlur('concern', e.target.value)}
-                    className={errors.concern ? 'border-red-500' : ''}
+                    className={`mt-1 ${errors.concern ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-300 focus:border-wellness-teal focus:ring-wellness-teal'}`}
                     rows={4}
                     placeholder="Please describe your symptoms or health concerns..."
                     required
                   />
                   {errors.concern && (
-                    <p className="text-red-500 text-sm mt-1">{errors.concern}</p>
+                    <p className="text-red-500 text-xs mt-1">{errors.concern}</p>
                   )}
                 </div>
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-wellness-teal hover:bg-teal-700 btn-hover"
+                  className="w-full bg-wellness-teal hover:bg-teal-700 text-white btn-hover py-3 text-base font-semibold"
                   aria-label="Submit patient info"
                 >
                   Submit & Continue
@@ -211,29 +210,32 @@ const PatientIntake = () => {
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-8">
-            {/* Success Banner */}
-            <Card className="bg-green-50 border-green-200">
+          <div className="space-y-8 animate-section-fade">
+            <Card className="card-premium border-teal-500/30">
               <CardContent className="p-6 text-center">
-                <h2 className="text-2xl font-bold text-green-800 mb-2">
-                  Thanks, {formData.fullName}! You're one step away...
+                <CheckCircle className="w-16 h-16 text-wellness-teal mx-auto mb-4 icon-premium" />
+                <h2 className="text-3xl font-semibold text-wellness-charcoal mb-2">
+                  Thanks, {formData.fullName}!
                 </h2>
-                <p className="text-green-700">
-                  Please select your preferred appointment time below.
+                <p className="text-slate-600 text-lg">
+                  You're one step away. Please select your preferred appointment time below.
                 </p>
               </CardContent>
             </Card>
 
-            {/* Calendly Widget */}
-            <Card className="shadow-lg">
-              <CardContent className="p-6">
-                <div className="calendly-widget-container">
+            <Card className="card-premium">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-2xl text-wellness-charcoal">Schedule Your Appointment</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 md:p-6">
+                <div className="calendly-widget-container rounded-lg overflow-hidden">
                   <iframe
                     src="https://calendly.com/poojith132photography/doctor-consultation-clone"
                     width="100%"
                     height="600"
                     frameBorder="0"
                     title="Schedule Appointment"
+                    className="min-h-[600px]"
                     onError={() => {
                       toast({
                         title: "Calendar Error",
@@ -243,8 +245,8 @@ const PatientIntake = () => {
                     }}
                   />
                 </div>
-                <p className="text-sm text-gray-600 text-center mt-4">
-                  If you don't see the calendar, refresh or try again.
+                <p className="text-xs text-slate-500 text-center mt-4">
+                  If you don't see the calendar, please refresh the page or try again in a few moments.
                 </p>
               </CardContent>
             </Card>
