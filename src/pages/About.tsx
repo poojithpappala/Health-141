@@ -140,7 +140,7 @@ const About = () => {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white hover:text-wellness-teal text-lg px-8 py-4 rounded-full">
+            <Button asChild variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white hover:text-wellness-teal text-lg px-8 py-4 rounded-full bg-transparent">
               <Link to="/doctors">
                 Meet Our Specialists
               </Link>
